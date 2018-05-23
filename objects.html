@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 Object Creation Functions, Inheritance, Properties, Methods, Instantiation</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+			<h1>Object Creation Functions, Inheritance, Properties, Methods, Instantiation</h1>
+			
+                        <h2>Character</h2>
+			<p>This example creates and stores a character record like one used in a small role playing game. </p>
+			<p><strong>NAME: </strong><span id="spnName"></span></p>
+			<p><strong>RACE: </strong><span id="spnRace"></span></p>
+			<p><strong>CLASS: </strong><span id="spnClass"></span></p>
+			<p><strong>LEVEL: </strong><span id="spnLevel"></span></p>
+                        <p><strong>DAMAGE: </strong><span id="spnDamage"></span> per second</p>
+
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+    
+                function Character(name, race, c_class, experience) {
+                    this.chrName = name;
+                    this.chrRace = race;
+                    this.chrClass = c_class;
+                    this.chrExperience = experience;
+                    this.chrLevel = calcLevel(experience);
+                    this.chrDamage = calcDamage(experience, c_class);
+                    
+                    function calcLevel(experience) {
+                        var fLevel = experience / 300;
+                        return Math.round(fLevel);
+                    };
+                    
+                    function calcDamage(experience, c_class) {
+                      var fLevel = calcLevel(experience);
+                      var fClass = c_class;
+                      var fDamageMult = null;
+                      
+                        switch(fClass) {
+                          case "Warrior": 
+                              fDamageMult = 1.5;
+                              break;
+                          case "Rogue":
+                              fDamageMult = 2;
+                              break;
+                          case "Druid":
+                              fDamageMult = .75;
+                              break;
+                          default:
+                              fDamageMult = 1;
+                        }
+                      
+                      var fDamage = fDamageMult * fLevel;
+                      
+                      return fDamage;
+                    };
+                };
+
+                var playerCharacter = new Character("Avair", "Human", "Warrior", 12345);
+                document.getElementById('spnName').innerHTML = playerCharacter.chrName;
+                document.getElementById('spnRace').innerHTML = playerCharacter.chrRace;
+                document.getElementById('spnClass').innerHTML = playerCharacter.chrClass;
+                document.getElementById('spnLevel').innerHTML = playerCharacter.chrLevel;
+                document.getElementById('spnDamage').innerHTML = playerCharacter.chrDamage;
+
+                                    
+                    //**** Object Creation Functions ****
+                    //
+                    //
+                    //**** Inheritance ****
+                    //
+                    //
+                    //**** Properties ****
+                    //
+                    //
+                    //**** Methods ****
+                    //
+                    //
+                    //**** Instantiation ****
+                    
+		</script>
+		
+    </body>
+
+</html>
