@@ -1,0 +1,240 @@
+/*==============Body============*/
+
+body {
+	background-color: #1b3353;
+	margin: auto;
+	font-family: Antic Slab;
+	color: #ffffff;
+	text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-family: Rock Salt;
+	color: #cd7c16;
+}
+
+h1 {
+	margin-top: 0px;
+}
+
+p, li {
+	text-align: left;
+}
+
+li {
+	padding: 5px 0px 5px 0px;
+}
+
+/*==============Header============*/
+
+header img {
+	display: block;
+	margin: auto;
+}
+
+#header-block {
+	height: 55px;
+}
+
+/*==============Home Page Navigation============*/
+
+.home-body {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 486px;
+   height: 486px;
+   margin-top: -243px;
+   margin-left: -243px;
+}
+
+body.home-body header img {
+	padding-bottom: 75px;
+}
+
+#nav-home {
+	position: relative;
+	top: -100px;
+	left: -20px; 
+}
+
+#nav-styles {
+	position: relative;
+	top: -115px;
+	left: -175px; 
+}
+
+#nav-about {
+	position: relative;
+	top: -50px;
+	left: -310px; 
+}
+
+#nav-practice {
+	position: relative;
+	top: 60px;
+	left: -305px; 
+}
+
+#nav-projects {
+	position: relative;
+	top: -220px;
+	left: 260px; 
+}
+
+#nav-experience {
+	position: relative;
+	top: -100px;
+	left: 255px; 
+}
+
+#nav-contact {
+	position: relative;
+	top: -30px;
+	left: -200px; 
+}
+
+/*==============Main Navigation============*/
+
+nav.content {
+	min-width: 840px;
+}
+
+nav.content ul {
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+nav li {
+    list-style-type: none;
+	text-align: center;	
+}
+
+nav.content li {
+	display: inline-block;
+	padding: 30px 40px 30px 40px;
+}
+
+nav.content img {
+	width: 75%;
+}
+
+
+/*==============Main Nav Link Style============*/
+
+nav a:link  {
+
+}
+
+nav a:visited {
+
+}
+
+header img:hover {
+	filter: brightness(130%);
+}
+
+nav a:hover {
+	filter: brightness(140%);
+}
+
+nav a:active {
+	filter: brightness(1000%);
+}
+
+/*==============General Nav Link Style============*/
+
+a:link{
+	color: #cd7c16;
+	text-decoration: none;
+	font-weight: bold;
+}
+a:visited{
+	color: #cd7c16;
+}
+a:hover{
+	color: #efaa41;
+	text-decoration: underline;
+}
+a:active{
+	color: #ffffff;
+}
+
+ul{
+	list-style-type: none;
+}
+
+/*==============FORM STYLE============*/
+
+form {
+	
+}
+
+label {
+	font-family: Rock Salt;
+	color: #cd7c16;
+	font-size: 16px;
+	float: left;
+    clear: left;
+}
+
+input {
+	font-family: Antic Slab;
+	display: inline-block;
+	text-align: left;
+	padding: 5px 5px 5px 5px;
+	margin: 5px 5px 5px 5px;
+		width: 200px;
+}
+
+textarea {
+	font-family: Antic Slab;
+	padding: 5px 5px 5px 5px;
+	margin: 5px 5px 5px 5px;
+	resize: none;
+	height: 100px;
+
+}
+
+
+input[type=image] {
+	width: 75%;
+}
+
+.field-wrapper {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	float: left;
+    clear: left;
+}
+
+/*==============MAIN STYLE============*/
+
+main {
+	width: 1000px;
+	margin: auto;
+}
+
+figure img{
+	margin-top: 30px;
+	width: 600px;
+	box-shadow: -2px 5px 5px #000000
+}
+
+figcaption {
+	font-weight: bold;
+	font-size: 14px;
+	text-align: left;
+	margin: 10px 0px 30px 0px;
+}
+/*==============FOOTER STYLE============*/
+
+footer {
+	
+}
+
+footer p {
+	text-align: center;
+	color: #cd7c16;
+	font-size: 14px;
+}
