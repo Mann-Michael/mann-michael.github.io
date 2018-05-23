@@ -1,0 +1,8 @@
+{
+	"name":"Catan", 
+	"description":"A game about exploring new lands.", 
+	"player_count":"2-6",
+	"age":"12+", 
+	"score":5, 
+	"difficulty":4
+}

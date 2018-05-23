@@ -1,0 +1,8 @@
+{
+	"name":"Tokaido", 
+	"description":"A game where the journey is the destination.", 
+	"player_count":"2-6",
+	"age":"10+", 
+	"score":5, 
+	"difficulty":3
+}

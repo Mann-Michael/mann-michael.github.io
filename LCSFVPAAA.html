@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 XMLHTTP Request JSON</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+			<h1>Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h1>
+			
+                        <h2>Variables</h2>
+			<h3>Undefined</h3>
+			<p>Creating a variable and initializing it with no value will make it undefined. </p>
+			<p><strong>variable = <span id="spnUndefined"></span></strong></p>
+			<h3>Null</h3>
+			<p>Creating a variable and initializing it with a "null" value will make it null. Null is a special case of "no value" used in code. Null variables show up as nothing, therefore the example will show nothing. Check the source code to see it defined as null. </p>
+			<p><strong>variable = <span id="spnNull"></span></strong></p>
+			<h3>Number</h3>
+			<p>Creating a variable and initializing it to a numeric value makes it a number. Numbers are not initialized using quotes. </p>
+			<p><strong>variable = <span id="spnNumber"></span></strong></p>
+			<h3>String</h3>
+			<p>Creating a variable and initializing it using characters inside quotes will make it a string. </p>
+			<p><strong>variable = <span id="spnString"></span></strong></p>
+			<h3>Boolean</h3>
+			<p>Creating a variable and initializing it as true or false will make it a boolean. A variable is a boolean only if it has a true r false value. Setting a boolean does not requires double quotes. </p>
+			<p><strong>variable = <span id="spnBoolean"></span></strong></p>
+			
+                        <h2>Arrays</h2>
+			<p>Arrays are lists of data that can be referenced by place and can be treated as objects. </p>
+			<p>This is an array of my children's names. This shows all data in the array. </p>
+			<p><strong><span id="spnArray"></span></strong></p>
+			<p>Since arrays in JavaScript are 0 based, this shows the piece of data in the 1st slot, identified as the 0 place. </p>
+			<p><strong><span id="spnArray0"></span></strong></p>
+			<p>This shows the name in the 1 place. </p>
+			<p><strong><span id="spnArray1"></span></strong></p>
+			<p>This shows the name in the 2 place. </p>
+			<p><strong><span id="spnArray2"></span></strong></p>
+			<p>Arrays are objects and have properties associated with them. This shows the array's length property. </p>
+			<p><strong><span id="spnArrayLength"></span></strong></p>
+			
+                        <h2>Associative Arrays</h2>
+			<p>Associative Arrays are lists of name/ value pairs where the developer names the keys for each field. They can be referenced by the name of the key. </p>
+			<p>This is an array about me. </p>
+                        <code>
+                            var myself = {name: "Michael", job: "Game Designer", food: "Ice Cream", age: 35};
+                        </code>
+                        <p>This example displays my name using the name of the key, instead of the number place. </p>
+                        <code>
+                            document.getElementById('spnAArrayKey').innerHTML = myself['name'];
+                        </code>
+			<p><strong><span id="spnAArrayKey"></span></strong></p>
+			<p>This example displays my name again, but references it like an object property.</p>
+			<code>
+                            document.getElementById('spnAArrayProperty').innerHTML = myself.name;
+                        </code>
+                        <p><strong><span id="spnAArrayProperty"></span></strong></p>
+			<p>We can show other fields too. This is the food field.  </p>
+ 			<p><strong><span id="spnAArrayFood"></span></strong></p>
+                        <p>This example displays tries to display the name again, but cannot because we labeled the keys with names instead of numbers. </p>
+                        <code>
+                            document.getElementById('spnAArrayNumber').innerHTML = myself[0];
+                        </code>
+			<p><strong><span id="spnAArrayNumber"></span></strong></p>.
+			<p>Again, some things get weird when you use named keys instead of numbers. You also cannot do things like show the length. This example tries to and returns undefined. </p>
+			<p><strong><span id="spnAArrayLength"></span></strong></p>			
+
+                        <h2>Conditional Statements</h2>
+                        <h3>If Statement</h3>
+			<p>The If statement checks to see if something is true.</p>
+			<p>This example generates a random number and then tells the user if it is greater than 5. </p>
+			<p>Your Random Number is: <span id="spnIfNumber"></span></p>
+                        <p><strong><span id="spnIf5"></span></strong></p>
+                        <h3>If Else Statement</h3>
+			<p>The If Else statement checks to see if something is true. If it isn't true it does something else. It can continue to make checks in a chain. </p>
+			<p>This example generates a random number and then tells the user if it is greater than 5, less than 5 or 5. </p>
+			<p>Your Random Number is: <span id="spnIfElseNumber"></span></p>
+                        <p><strong><span id="spnIfElse5"></span></strong></p>
+                        <h3>Switch Statements</h3>
+			<p>The switch statement efficiently checks many cases to see if they are true. </p>
+			<p>This example generates a random number and then tells the user a joke depending on the number. </p>
+			<p>Your Random Number is: <span id="spnSwitchNumber"></span></p>
+                        <p><strong><span id="spnSwitch"></span></strong></p>
+                        
+			<h2>Loops</h2>
+			<h3>For Loop Example</h3>
+			<p>This 'FOR LOOP' example picks a random number between 1 and 100. It then prints all numbers between 1 and the random number that are divisible by 5. </p>
+			<p>Your Random Number is: <span id="spnForLoop"></span></p>
+			<p>Each number between 1 and your random number that are divisible by 5 are:</p>
+			<div id="divForLoop"></div>
+			<h3>While Loop Example</h3>
+			<p>This 'WHILE LOOP' example displays all values between your random number (between 0 and 10) and 15, not inclusive. </p>
+			<p>Your Random Number is: <span id="spnWhileLoop"></span></p>
+			<p>Each number between your random number and 15:</p>
+			<div id="divWhileLoop"></div>
+			<h3>Do While Loop Example</h3>
+			<p>This 'DO WHILE LOOP' example performs the same task as the 'WHILE LOOP' except it uses the 'DO WHILE' syntax. </p>
+			<p>Your Random Number is: <span id="spnDoWhileLoop"></span></p>
+			<p>Each number between your random number and 15:</p>
+			<div id="divDoWhileLoop"></div>
+                        
+                        <h2>Functions</h2>
+			<p>Functions are reusable portions of code that can be called and passed in parameters.</p>
+			<p>This example generates two random numbers and multiplies them. Then multiplies that product by the first random number. </p>
+			<p>Your First Random Number is: <span id="spnRandomNumber1"></span></p>
+                        <p>Your Second Random Number is: <span id="spnRandomNumber2"></span></p>
+                        <p>Your First Product is: <span id="spnProduct1"></span></p>
+                        <p>Your Second Product is: <span id="spnProduct2"></span></p>
+                       
+
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+			//**** VARIABLES ****
+			//Creating a variable and initializing it with no value will make it undefined. 
+			var variable;
+			document.getElementById('spnUndefined').innerHTML = variable;
+			//Creating a variable and initializing it to null will make it null. 
+			var variable = null;
+			document.getElementById('spnNull').innerHTML = variable;
+			//Creating a variable and initializing it to a number makes it a number. Numbers use no quotes.
+			var variable = 45;
+			document.getElementById('spnNumber').innerHTML = variable;
+			//Creating a variable and initializing it using characters inside quotes will make it a string. 
+			var variable = "This is a string. Strings are initialized with characters inside of double quotes.";
+			document.getElementById('spnString').innerHTML = variable;
+			//Creating a variable and initializing it as true or false will make it a boolean. 
+			var variable = true;
+			document.getElementById('spnBoolean').innerHTML = variable;
+			
+			//**** ARRAYS ****
+			//An array is a list that can have individual entries referenced by number. Arrays in JavaScript are 0 based. 
+			//create my variables "kids" and initialize it as an array with data.
+			var kids = ["Jane", "Avery", "Iris"];
+			//Write the all kids to the HTML
+			document.getElementById('spnArray').innerHTML = kids;
+			//Write the first kid to the HTML
+			document.getElementById('spnArray0').innerHTML = kids[0];
+			//Write the second kid to the HTML
+			document.getElementById('spnArray1').innerHTML = kids[1];
+			//Write the third kid to the HTML
+			document.getElementById('spnArray2').innerHTML = kids[2];
+			//Write the length of the kids array to the HTML
+			document.getElementById('spnArrayLength').innerHTML = kids.length;
+			
+			//**** ASSOCIATIVE ARRAYS ****
+			//An associative array is an array that has user defined name for the name/value pairs, instead of just a list of values. 
+                        //Create an associative array within a variable
+                        var myself = {name: "Michael", job: "Game Designer", food: "Ice Cream", age: 35};
+                        
+                        //Write the name field of the array to a span using the name key
+                        document.getElementById('spnAArrayKey').innerHTML = myself['name'];
+                        //Write the name field to a span
+                        document.getElementById('spnAArrayProperty').innerHTML = myself.name;                        
+                        //Write the food field to a span
+                        document.getElementById('spnAArrayFood').innerHTML = myself.food;
+                        //Write the job field to a span **doesn't work with named keys**
+                        document.getElementById('spnAArrayNumber').innerHTML = myself[0];                        
+                        //Write the length to a span **doesn't work with named keys**
+                        document.getElementById('spnAArrayLength').innerHTML = myself.length;
+                        
+			//**** CONDITIONAL STATEMENTS ****
+			//**** If Statement ****
+                        //Create a random number and show it, then if its greater than 5, tell the user. 
+			//Set the random number between 0 and 10
+			var rndNumberIf = Math.floor(Math.random() * 11);
+			//Display the random number
+			document.getElementById('spnIfNumber').innerHTML = rndNumberIf;
+			//Set the string variable
+			var strOutputIf = "";
+			//check to see if the number is greater than 5, if it is, tell the user
+			if ( rndNumberIf > 5) {
+                            strOutputIf = "Your number is greater than 5.";
+			}
+			//Display the return string
+			document.getElementById('spnIf5').innerHTML = strOutputIf;
+                        
+                        //**** If Else Statement ****
+                        //Create a random number and show it, then tell the user if it is greater than 5, less than 5 or 5.  
+			//Set the random number between 0 and 10
+			var rndNumberIfElse = Math.floor(Math.random() * 11);
+			//Display the random number
+			document.getElementById('spnIfElseNumber').innerHTML = rndNumberIfElse;
+			//Set the string variable
+			var strOutputIfElse = "";
+			//check to see if the number is greater than 5, else if it is less than 5, else if it is 5. 
+			if ( rndNumberIfElse > 5) {
+                            strOutputIfElse = "Your number is greater than 5.";
+			} else if (rndNumberIfElse < 5) {
+                            strOutputIfElse = "Your number is less than 5.";                            
+                        } else if (rndNumberIfElse == 5) {
+                            strOutputIfElse = "Your number is 5.";
+                        }
+			//Display the return string
+			document.getElementById('spnIfElse5').innerHTML = strOutputIfElse;			
+                        
+			//**** Switch Statement ****
+                        //Create a random number and show it, then tell the user a joke based on which number it is.
+			//Set the random number between 0 and 3
+			var rndNumberSwitch = Math.floor(Math.random() * 4);
+			//Display the random number
+			document.getElementById('spnSwitchNumber').innerHTML = rndNumberSwitch;
+			//Set the string variable
+			var strOutputSwitch = "";
+			//Check the number against multiple values to see what joke the user gets
+                        switch (rndNumberSwitch) {
+                            //multiple cases can execute the same code
+                            case 0:
+                            case 1:
+                                strOutputSwitch = "Why don't crabs give to charity?<br>...<br>Because they are shellfish.";
+                                break;
+                            case 2:
+                                strOutputSwitch = "I was addicted to the Hokey Pokey.<br>...<br>But I turned myself around.";
+                                break;
+                            case 3:
+                                strOutputSwitch = "I sold my vacuum cleaner.<br>...<br>It was just gathering dust.";
+                                break;
+                        }
+			//Display the return string
+			document.getElementById('spnSwitch').innerHTML = strOutputSwitch;
+                        
+			//**** LOOPS ****
+			//**** For Loop ****
+			//Get a random number between 1 and 100, then print each number divisible by 5 up to the random number
+			//Set the random number between 1 and 100
+			var rndNumberFL = Math.floor(Math.random() * 100) + 1;
+			//Display the random number
+			document.getElementById('spnForLoop').innerHTML = rndNumberFL;
+			//Set the other variables
+			var strOutputFL = "";
+			var i;
+			//Create the for loop to run from 1 up to and including the random number, be sure to increment i each time
+			for (i = 1; i <= rndNumberFL; i++) {
+				//check to see if the number is divisbile by 5, if it is, add it to the output
+				if ( i % 5 ===0) {
+					strOutputFL += i + "<br> ";
+				}
+			}
+			//Display the numbers
+			document.getElementById('divForLoop').innerHTML = strOutputFL;
+			
+			//**** While Loop ****
+			//Get a random number between 0 and 10, then add 1 to it while the value is less than 15
+			//Set the random number between 0 and 10
+			var rndNumberW = Math.floor(Math.random() * 11);
+			//Display the random number
+			document.getElementById('spnWhileLoop').innerHTML = rndNumberW;
+			//Set the other variables
+			var strOutputW = "";
+			var i = rndNumberW + 1;
+			//Create the while loop to display the numbers between your random value and 15, be sure to increment i each time
+			while (i<15) {
+				//Write the number to the string and add 1
+				strOutputW += i + "<br> ";
+				i++;
+			}
+			//Display the numbers
+			document.getElementById('divWhileLoop').innerHTML = strOutputW;
+			
+			//**** Do While Loop ****
+			//Get a random number between 0 and 10, then add 1 to it while the value is less than 15
+			//Set the random number between 0 and 10
+			var rndNumberDW = Math.floor(Math.random() * 11);
+			//Display the random number
+			document.getElementById('spnDoWhileLoop').innerHTML = rndNumberDW;
+			//Set the other variables
+			var strOutputDW = "";
+			var i = rndNumberDW;
+			//Create the do while loop to display the numbers between your random value and 15, be sure to increment i each time
+			do {
+				//Write the number to the string and add 1
+				i++;
+				strOutputDW += i + "<br> ";
+			}
+			while (i<14);
+			//Display the numbers
+			document.getElementById('divDoWhileLoop').innerHTML = strOutputDW;
+
+			//**** FUNCTIONS ****
+			//Functions are reusable portions of code that can be called and passed in parameters.
+                        //This example generates two numbers, then multiplies them together. 
+                        //Randomly generate two numbers between 0 and 10.
+			var rndNumberFunction1 = Math.floor(Math.random() * 11);
+                        var rndNumberFunction2 = Math.floor(Math.random() * 11);
+			//Display the random numbers
+			document.getElementById('spnRandomNumber1').innerHTML = rndNumberFunction1;
+                        document.getElementById('spnRandomNumber2').innerHTML = rndNumberFunction2;
+                        
+                        //Create the multiplication function
+                        function multiply (p1,p2) {
+                            var product = p1* p2;
+                            return product;
+                        }
+			//Call multiply function
+                        var product1 = multiply(rndNumberFunction1, rndNumberFunction2);
+                        //Display first product
+                        document.getElementById('spnProduct1').innerHTML = product1;
+                        //Next we can multiply the first product by rndNumberFunction1 using the same function
+                        var product2 = multiply(rndNumberFunction1, product1);
+                       //Display second product
+                       document.getElementById('spnProduct2').innerHTML = product2;
+		
+		</script>
+		
+    </body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 XMLHTTP Request JSON</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+			<h1>Using XMLHTTP Request to Consume a JSON Web Service</h1>
+			<h2>What is JSON?</h2>
+			<p>JSON - JavaScript Object Notation</p>
+			<p>Information stored in text, with special notation so that it can be read by JavaScript. Once read by JavaScript, it can easily be converted in JavaScript objects for manipulating by your web application. The efficiency of translating data from JSON to JavaScript objects is JSON’s biggest strength. </p>
+			<h3>Syntax</h3>
+			<ul>
+				<li>Stored in name/ value pairs</li>
+				<li>Squiggly brackets encase a record within the object</li>
+				<li>The field name is enclosed in double quotes and has a colon after it</li>
+				<li>The field value is enclosed in quotes if it is a string</li>
+				<li>Each field name and field value are separated by a comma</li>
+			</ul>
+			<h3>Example JSON</h3>
+			<code>
+				{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}
+			</code>
+			<h2>What is an XMLHTTP Request?</h2>
+			<p>XMLHTTP Request is part of the AJAX framework. AJAX stands for Asynchronous JavaScript And XML. The XMLHTTP Request is a browser object that can request data from a sever. Its biggest strength is that it can do its work without refreshing the web page (asynchronous requests). This is useful because it gives quick updates and information to the user without having to reload data or browser files. This makes using your web app more streamlined and efficient for the user. </p>
+			
+			<h3>Simple JSON Example</h3>
+			<div id="divSimpleJSONOutput"></div>
+			<h3>Asynchronous JSON Example</h3>
+			<div id="divASyncJSONOutput"></div>
+			<h3>Synchronous JSON Example</h3>
+			<div id="divSyncJSONOutput"></div>
+
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+			//****Simple JSON Example****
+			//Set up the JSON data
+			var games = JSON.parse('{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}');
+
+			//Prepare JSON data
+			var outputString = "Name: " + games.name; 
+			outputString += "<br>";
+			outputString += "Description: " + games.description;
+			outputString += "<br>";
+			outputString += "# of Players: " + games.player_count;
+			outputString += "<br>";
+			outputString += "Recommended Age: " + games.age;
+			outputString += "<br>";
+			outputString += "Overall Score: " + games.score;
+			outputString += "<br>";
+			outputString += "Difficulty: " + games.difficulty;
+
+			//Write JSON data to screen			
+			document.getElementById("divSimpleJSONOutput").innerHTML = outputString;
+			
+			//****Asynchronous JSON Example****
+			
+			// Create XMLHttpRequest Object
+			var aRequest = new XMLHttpRequest();
+			
+			//Make sure the request is finished
+			//Check the ready state and stauts whenever the ready state changes
+			aRequest.onreadystatechange = function () {
+				//This function checks the ready state and status to make sure its finished and OK
+				if (aRequest.readyState == 4 && aRequest.status == 200) {
+					//Parse the JSON return
+					var aGames = JSON.parse(aRequest.responseText);
+					
+					//Prepare JSON Data
+					var aOutputString = "Name: " + aGames.name; 
+					aOutputString += "<br>";
+					aOutputString += "Description: " + aGames.description;
+					aOutputString += "<br>";
+					aOutputString += "# of Players: " + aGames.player_count;
+					aOutputString += "<br>";
+					aOutputString += "Recommended Age: " + aGames.age;
+					aOutputString += "<br>";
+					aOutputString += "Overall Score: " + aGames.score;
+					aOutputString += "<br>";
+					aOutputString += "Difficulty: " + aGames.difficulty;
+					
+					// Print the response to the HTML
+					document.getElementById('divASyncJSONOutput').innerHTML = aOutputString;
+				}
+			}
+			
+			// Open (initialize) the request
+			aRequest.open("GET", "asyncgames.json", true); // HTTP Request Method (GET, POST, etc.), URL, Is Async?
+			
+			// Send the Request
+			aRequest.send();			
+
+			//****Synchronous JSON Example****
+
+			// Create XMLHttpRequest Object
+			var sRequest = new XMLHttpRequest();
+			
+			// Open (initialize) the request
+			sRequest.open("GET", "syncgames.json", false); // HTTP Request Method (GET, POST, etc.), URL, Is Async?
+			
+			// Send the Request
+			sRequest.send();
+			
+			//Parse the JSON return
+			var sGames = JSON.parse(sRequest.responseText);
+			
+			//Prepare JSON Data
+			var sOutputString = "Name: " + sGames.name; 
+			sOutputString += "<br>";
+			sOutputString += "Description: " + sGames.description;
+			sOutputString += "<br>";
+			sOutputString += "# of Players: " + sGames.player_count;
+			sOutputString += "<br>";
+			sOutputString += "Recommended Age: " + sGames.age;
+			sOutputString += "<br>";
+			sOutputString += "Overall Score: " + sGames.score;
+			sOutputString += "<br>";
+			sOutputString += "Difficulty: " + sGames.difficulty;
+			
+			// Print the response to the HTML
+			document.getElementById('divSyncJSONOutput').innerHTML = sOutputString;
+		</script>
+		
+    </body>
+
+</html>
