@@ -39,8 +39,9 @@
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
         </footer>
 		<script>
-    
+                //Create the prototype object
                 function Character(name, race, c_class, experience) {
+                    //Set the properties of the object
                     this.chrName = name;
                     this.chrRace = race;
                     this.chrClass = c_class;
@@ -48,11 +49,12 @@
                     this.chrLevel = calcLevel(experience);
                     this.chrDamage = calcDamage(experience, c_class);
                     
+                    //Create calcLevel method. This figures out the level of the character based on a simple experience calculation. 
                     function calcLevel(experience) {
                         var fLevel = experience / 300;
                         return Math.round(fLevel);
                     };
-                    
+                    //Create calcDamage method. This figures out the damage based on c_class and experience
                     function calcDamage(experience, c_class) {
                       var fLevel = calcLevel(experience);
                       var fClass = c_class;
@@ -77,8 +79,9 @@
                       return fDamage;
                     };
                 };
-
+                //Instantiate the character object
                 var playerCharacter = new Character("Avair", "Human", "Warrior", 12345);
+                //Display the object information
                 document.getElementById('spnName').innerHTML = playerCharacter.chrName;
                 document.getElementById('spnRace').innerHTML = playerCharacter.chrRace;
                 document.getElementById('spnClass').innerHTML = playerCharacter.chrClass;
