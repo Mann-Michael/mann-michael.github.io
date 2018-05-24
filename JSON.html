@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 JSON Parse and Stringify</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+			<h1>JSON Parse and Stringify</h1>
+			<h2>JSON Parse?</h2>
+			<p>JSON Parse turns a string into a JSON Object (associative array) to be used </p>
+			<h3>Example JSON.parse</h3>
+			<code>
+				var games = JSON.parse('{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}');
+			</code>
+			
+			<h3>JSON Parse Example</h3>
+			<div id="divSimpleJSONOutput"></div>
+
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+			//**** JSON.parse ****
+			//Set up the JSON data
+			var games = JSON.parse('{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}');
+
+			//Prepare JSON data
+			var outputString = "Name: " + games.name; 
+			outputString += "<br>";
+			outputString += "Description: " + games.description;
+			outputString += "<br>";
+			outputString += "# of Players: " + games.player_count;
+			outputString += "<br>";
+			outputString += "Recommended Age: " + games.age;
+			outputString += "<br>";
+			outputString += "Overall Score: " + games.score;
+			outputString += "<br>";
+			outputString += "Difficulty: " + games.difficulty;
+
+			//Write JSON data to screen			
+			document.getElementById("divSimpleJSONOutput").innerHTML = outputString;
+			
+
+		</script>
+		
+    </body>
+
+</html>
