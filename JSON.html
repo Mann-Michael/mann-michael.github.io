@@ -25,41 +25,64 @@
         </nav>
         <main>
 			<h1>JSON Parse and Stringify</h1>
-			<h2>JSON Parse?</h2>
-			<p>JSON Parse turns a string into a JSON Object (associative array) to be used </p>
-			<h3>Example JSON.parse</h3>
+			<h2>JSON Parse</h2>
+			<p>JSON.parse turns a string into a JSON Object (associative array) to be used </p>
+			<h3>JSON.parse Syntax</h3>
 			<code>
-				var games = JSON.parse('{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}');
+                            //Set up the string data<br>
+                            var strGame = '{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}';<br>
+                            //Convert the string to a JSON object<br>
+                            var games = JSON.parse(strGame);<br>
 			</code>
 			
 			<h3>JSON Parse Example</h3>
-			<div id="divSimpleJSONOutput"></div>
+                        <p>Name: <span id="spnJSONParseName"></span></p>
+                        <p>Description: <span id="spnJSONParseDescription"></span></p>
+                        <p># of Players: <span id="spnJSONParseCount"></span></p>
+                        <p>Recommended Age: <span id="spnJSONParseAge"></span></p>
+                        <p>Overall Score: <span id="spnJSONParseScore"></span></p>
+                        <p>Difficulty: <span id="spnJSONParseDifficulty"></span></p>
 
+                        <h2>JSON Stringify</h2>
+			<p>JSON.stringify turns a JSON Array into a string. </p>
+
+			<h3>JSON Stringify Example</h3>
+			<p>This is now a sad string: <span id="spnJSONStringify"></span></p>
+                        <p>This is a test of the variable type for the JSON Object: <span id="spnJSONStringifyVariable1"></span></p>
+                        <p>This is a test after stringify: <span id="spnJSONStringifyVariable2"></span></p>
         </main>
         <footer>
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
         </footer>
 		<script>
 			//**** JSON.parse ****
-			//Set up the JSON data
-			var games = JSON.parse('{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}');
-
-			//Prepare JSON data
-			var outputString = "Name: " + games.name; 
-			outputString += "<br>";
-			outputString += "Description: " + games.description;
-			outputString += "<br>";
-			outputString += "# of Players: " + games.player_count;
-			outputString += "<br>";
-			outputString += "Recommended Age: " + games.age;
-			outputString += "<br>";
-			outputString += "Overall Score: " + games.score;
-			outputString += "<br>";
-			outputString += "Difficulty: " + games.difficulty;
+			//Set up the string data
+			var strGame = '{"name":"Red 7", "description":"A strategic hand management game.", "player_count":"2-4", "age":"10+", "score":4, "difficulty":3}';
+                        //Convert the string to a JSON object
+                        var games = JSON.parse(strGame);
 
 			//Write JSON data to screen			
-			document.getElementById("divSimpleJSONOutput").innerHTML = outputString;
-			
+			document.getElementById("spnJSONParseName").innerHTML = games.name;
+                        document.getElementById("spnJSONParseDescription").innerHTML = games.description;
+                        document.getElementById("spnJSONParseCount").innerHTML = games.player_count;
+                        document.getElementById("spnJSONParseAge").innerHTML = games.age;
+                        document.getElementById("spnJSONParseScore").innerHTML = games.score;
+                        document.getElementById("spnJSONParseDifficulty").innerHTML = games.difficulty;
+                        
+                        //This doesn't work anymore
+                        //document.getElementById("divJSONParseString").innerHTML = games;
+                        //This would though
+                        //document.getElementById("divJSONParseString").innerHTML = strGame;
+
+			//**** JSON.stringify ****
+			//Use JSON Object from previous example - the "games" variable - and stringify it
+                        var gamesStringify = JSON.stringify(games);
+                        
+			//Write JSON data to screen			
+			document.getElementById("spnJSONStringify").innerHTML = gamesStringify;
+                        //Display the new variable type and old variable type
+                        document.getElementById("spnJSONStringifyVariable1").innerHTML = typeof(games);
+                        document.getElementById("spnJSONStringifyVariable2").innerHTML = typeof(gamesStringify);
 
 		</script>
 		
