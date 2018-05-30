@@ -24,12 +24,19 @@
             </ul> 
         </nav>
         <main>
-			<h1>Manipulating CSS Class Properties Using JavaScript</h1>
-			
-                        <button type="button">Modify by Id</button>
-                        <button type="button">Modify by Tag</button>
-                        <button type="button">Modify by Class</button>
-                        <button type="button">Modify by CSS Selector</button>
+            <h1>Manipulating CSS Class Properties Using JavaScript</h1>
+            <h3 id="by-id">Change Elements by Id</h3>
+            <p class="by-class">This button toggles the background color of this header to pink and back to default by selecting it from all the other elements via Id.</p>
+            <button type="button" onclick="SelectById()">Modify by Id</button>
+            <h3 id="by-id">Change Elements by Class</h3>
+            <p class="by-class">This button toggles the font style of all elements labeled "by-class" between normal and italic via class. The paragraph after the "CSS Selector" header is not in this class. </p>
+            <button type="button" onclick="SelectByClass()">Modify by Class</button>            
+            <h3>Change Elements by Tag</h3>
+            <p class="by-class">This button aligns the font color of all p elements via their HTML Tags.</p>
+            <button type="button" onclick="SelectByTag()">Modify by Tag</button>
+            <h3>Change Elements by CSS Selector</h3>
+            <p>This button toggles the font family of all h3 elements between Rock Salt and Antic Slab via CSS Selectors.</p>
+            <button type="button" onclick="SelectBySelector()">Modify by CSS Selector</button>
                         
 
         </main>
@@ -38,9 +45,72 @@
         </footer>
 		<script>
                 //**** Select By Id ****
-                //**** Select By Tag ****
+                //Just changes the first element with this id
+                var byIdColor="";
+                
+                function SelectById (){
+                   
+                    if (byIdColor === "pink"){
+                       byIdColor = "#1b3353";
+                    } else {
+                        byIdColor = "pink";
+                    }
+                    document.getElementById("by-id").style.backgroundColor = byIdColor;
+                }
+                
                 //**** Select By Class ****
+                var byClassStyle="";
+                //put the 'by-class' elements into an array
+                var classElements = document.getElementsByClassName('by-class');
+                
+                function SelectByClass (){
+                    //Set the weight   
+                    if (byClassStyle === "italic"){
+                       byClassStyle = "normal";
+                    } else {
+                        byClassStyle = "italic";
+                    }
+                    //Cycle through the array and change the font style of each element one at a time
+                    for(var i=0; i < classElements.length; i++){
+                        classElements[i].style.fontStyle = byClassStyle;
+                    }
+                }   
+
+                //**** Select By Tag ****
+                var byTagAlign="";
+                //put the p elements into an array
+                var pElements = document.getElementsByTagName('p');
+                
+                function SelectByTag (){
+                    //Set the font   
+                    if (byTagAlign === "center"){
+                       byTagAlign = "left";
+                    } else {
+                        byTagAlign = "center";
+                    }
+                    //Cycle through the array and change the font family of each element one at a time
+                    for(var i=0; i < pElements.length; i++){
+                        pElements[i].style.textAlign = byTagAlign;
+                    }
+                }   
+
                 //**** Select By CSS Selector ****
+                var bySelectorFont="";
+                //put the h3 elements into an array
+                var h3Elements = document.querySelectorAll('h3');
+                
+                function SelectBySelector (){
+                    //Set the font   
+                    if (bySelectorFont === "Antic Slab"){
+                       bySelectorFont = "Rock Salt";
+                    } else {
+                        bySelectorFont = "Antic Slab";
+                    }
+                    //Cycle through the array and change the font family of each element one at a time
+                    for(var i=0; i < h3Elements.length; i++){
+                        h3Elements[i].style.fontFamily = bySelectorFont;
+                    }
+                }                
                        
 		</script>
 		
