@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objectst</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects</h1>
+            
+            
+            <h3 id="by-id">Store Local Array</h3>
+            <p>Type a name in and click the button to store it locally. </p>
+            <form>
+                Name: <input type="text" id="name">
+                <button type="button" onclick="AddName()">Add Name</button>
+                <button type="button" onclick="ClearNameStorage()">Clear Names</button>
+            </form>
+            <span>Name List: <span id="spnNames"> </span></span>
+            <p>Click this button to generate a character.</p>
+            <button type="button" onclick="CreateCharacter()">Create Character</button>
+            <span id="spnName"></span>
+            <span id="spnAge"></span>
+            <span id="spnRace"></span>
+            <span id="spnItems"></span>
+
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+                //**** Store Local Array ****
+                //This section allows the user to place a name in a name list and store it locally. 
+                //If the user removes all names, it supplies them with a default
+
+                //Check to see if there is data in localNames, if there is, then set names array to it
+                if(localStorage.getItem("localNames") !== null){
+                    var names = JSON.parse(localStorage.getItem("localNames"));
+                } else {
+                    //if there isnt data in the local names set default name
+                    var names = SetDefaultName();
+                }
+                //Show current names
+                document.getElementById('spnNames').innerHTML = names;
+
+                function AddName(){
+                //This function adds a name to the names array, then stores it in the local storage if not empty
+                    //Store the entered value in a variable
+                    var n = document.getElementById('name').value;
+                    //Check to see if the entry is not empty
+                    if(n !== "") {
+                        //if it is not empty,add it to the array at the end
+                        names.push(n);
+                        //reset the text box
+                        document.getElementById('name').value = "";
+                        //store the name in the localNames local storage for further usage
+                        localStorage.setItem("localNames", JSON.stringify(names));
+                        //Display the array
+                        document.getElementById('spnNames').innerHTML = names;
+                    }
+                }
+
+                function SetDefaultName(){
+                    var defaultNames = ["Namey McNamus"];
+                    localStorage.setItem("localNames", JSON.stringify(defaultNames));
+                    return defaultNames;
+                }
+
+                function ClearNameStorage(){
+                //function to clear local storage and refresh name list
+                    localStorage.removeItem("localNames");
+                    var names = SetDefaultName();
+                    document.getElementById('spnNames').innerHTML = names;
+                }
+                
+                //**** Associative Arrays and Objects ****/
+                //This section allows the user to click the character create button and they will randomly be assigned various stats including:
+                //Name from the local name list
+                //Items from a randomly generated local list
+                //Random Age 
+                //Random Race
+                //
+                
+                var races = ["Dwarf", "Elf", "Human", "Giant", "Troll"];
+                
+                function GenerateItems(){
+                    //set up possible items and create inventory
+                    var possibleItems = ["Sword of Omniscience", "Handbag of Miracles", "Ever-Slipping Shoes", "Flowing Silk Ascot", "Bulwark of Thorns", "Chest of Gold", "Stalwart Water Bladder"];
+                    //var inventory = [];
+                    //give player 1 item
+//                    for (i = 0; i < 3; i++){
+                        //randomly choose item
+                        var rnd = Math.floor(Math.random() * possibleItems.length);
+                        //add to inventory
+                        var newItem = possibleItems[rnd];
+                        var inventory = [];
+                        inventory.push(newItem);
+  //                  }
+                    return inventory;
+                }
+                
+                function GenerateName(){
+                    var possibleNames = JSON.parse(localStorage.getItem("localNames"));
+                    var rnd = Math.floor(Math.random() * possibleNames.length);
+                    var name = possibleNames[rnd];
+                    return name;
+                }
+                
+                function CreateCharacter(){
+                    //create character using random information
+                    character.name = GenerateName();
+                    character.inventory = GenerateItems();
+                    character.age = Math.floor(Math.random() * 100);
+                    character.race = races[Math.floor(Math.random() * 5)];
+                    //save character locally
+                    localStorage.setItem("localCharacter", JSON.stringify(character));
+                    //Rewrite the charatcer data to spans
+                    document.getElementById('spnName').innerHTML = character.name;
+                    document.getElementById('spnAge').innerHTML = character.age;
+                    document.getElementById('spnRace').innerHTML = character.race;
+                    document.getElementById('spnItems').innerHTML = character.inventory;
+                    return character; 
+                }
+                
+                if(JSON.parse(localStorage.getItem("localCharacter")) !== null){
+                    var character = JSON.parse(localStorage.getItem("localCharacter"));
+                } else {
+                    var character = {name:"1", age: "1", race: "1", inventory:"1"};
+                }
+                
+                //Write the charatcer data to spans
+                document.getElementById('spnName').innerHTML = character.name;
+                document.getElementById('spnAge').innerHTML = character.age;
+                document.getElementById('spnRace').innerHTML = character.race;
+                document.getElementById('spnItems').innerHTML = character.inventory;
+                
+                //create a character and display it from local storage
+                //click the button to generate a class
+                //the object generates the following:
+                //grabs name from local list. if list is empty, give default
+                //age
+                //items from standard item list
+                //
+                //stores your character in local storage in an associative array
+                //displays it from local associative array
+                //
+                //
+                //
+                //ARRAYS
+                //name options, weapon options
+                //ASSOCIATIVE ARRAYS
+                //charatcer
+                //OBJECTS
+                // stores 
+                              
+                       
+		</script>
+		
+    </body>
+
+</html>
