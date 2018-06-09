@@ -25,8 +25,6 @@
         </nav>
         <main>
             <h1>Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects</h1>
-            
-            
             <h3 id="by-id">Store Local Array</h3>
             <p>Type a name in and click the button to store it locally. </p>
             <form>
@@ -37,10 +35,11 @@
             <span>Name List: <span id="spnNames"> </span></span>
             <p>Click this button to generate a character.</p>
             <button type="button" onclick="CreateCharacter()">Create Character</button>
-            <span id="spnName"></span>
-            <span id="spnAge"></span>
-            <span id="spnRace"></span>
-            <span id="spnItems"></span>
+            <p>Character Information</p>
+            <p>Name: <span id="spnName"></span></p>
+            <p>Age: <span id="spnAge"></span></p>
+            <p>Race: <span id="spnRace"></span></p>
+            <p>Item: <span id="spnItems"></span></p>
 
         </main>
         <footer>
@@ -97,7 +96,6 @@
                 //Items from a randomly generated local list
                 //Random Age 
                 //Random Race
-                //
                 
                 var races = ["Dwarf", "Elf", "Human", "Giant", "Troll"];
                 
@@ -151,27 +149,6 @@
                 document.getElementById('spnAge').innerHTML = character.age;
                 document.getElementById('spnRace').innerHTML = character.race;
                 document.getElementById('spnItems').innerHTML = character.inventory;
-                
-                //create a character and display it from local storage
-                //click the button to generate a class
-                //the object generates the following:
-                //grabs name from local list. if list is empty, give default
-                //age
-                //items from standard item list
-                //
-                //stores your character in local storage in an associative array
-                //displays it from local associative array
-                //
-                //
-                //
-                //ARRAYS
-                //name options, weapon options
-                //ASSOCIATIVE ARRAYS
-                //charatcer
-                //OBJECTS
-                // stores 
-                              
-                       
 		</script>
 		
     </body>
