@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 DOM Manipulation</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>DOM Manipulation</h1>
+            <p>This page shows DOM Manipulation using createElement, appendChild, insertBefore, removeChild, etc.</p>
+            <p>Create a list by entering in what you want and pushing the button the corresponds with the action you want to take.</p>
+            <form>
+                List Entry: <input type="text" id="itemName">
+                <button type="button" onclick="AddItem()">Create List Item</button>
+                <button type="button" onclick="AddItemTop()">Create List Item at Top</button>
+                Enter which item you want to remove <input type="text" id="itemNumber">
+                <button type="button" onclick="RemoveItem()">Remove List Item</button>
+            </form>
+            <div>
+                <ol id="itemList">
+
+                </ol>
+                
+            </div>
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+                //**** Create Element ****
+                
+                function AddItem(){
+                    //create the li node and get value for text
+                    var list = document.createElement("li");
+                    var itemName = document.getElementById('itemName').value;
+                    if (itemName === ""){
+                      //if there is no text value, then do nothing
+                      return null;
+                    } else {
+                        //if the user entered data, then create the text node
+                        var itemNode = document.createTextNode(itemName);
+                        //append the text ndoe to the li
+                        list.appendChild(itemNode);
+                        //append the li to the ol "itemList"
+                        document.getElementById("itemList").appendChild(list);
+                        //null out the entered data
+                        document.getElementById('itemName').value = null; 
+                    }
+                }
+                
+                function AddItemTop(){
+                    //create the li node and get value for text
+                    var list = document.createElement("li");
+                    var itemName = document.getElementById('itemName').value;
+                    if (itemName === ""){
+                      //if there is no text value, then do nothing
+                      return null;
+                    } else {
+                        //if the user entered data, then create the text node
+                        var itemNode = document.createTextNode(itemName);
+                        //append the text ndoe to the li
+                        list.appendChild(itemNode);
+                        //append the li to the top of ol "itemList"
+                        var topList = document.getElementById("itemList");
+                        topList.insertBefore(list,topList.childNodes[0]);
+                        //null out the entered data
+                        document.getElementById('itemName').value = null; 
+                    }
+                }
+                
+                function RemoveItem(){
+                    //get item list
+                    var itemList = document.getElementById("itemList");
+                    //get the eneter item number
+                    var enteredNumber = document.getElementById("itemNumber").value;
+                    //make it fit the array format
+                    var itemNumber = enteredNumber - 1;
+                    //remove the child
+                    itemList.removeChild(itemList.childNodes[itemNumber]);
+                    //clear entered number
+                    document.getElementById("itemNumber").value = null;
+                }
+		</script>
+		
+    </body>
+
+</html>
