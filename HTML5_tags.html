@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 HTML5 Tags - Video, Audio, and Canvas</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+			<div id="header-block">
+			</div>
+			<a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+		</header>
+        <nav class="content">
+            <ul>
+				<li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+				<li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+				<li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+				<li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+				<li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+				<li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>HTML5 Tags - Video, Audio, and Canvas</h1>
+            <h3>Video</h3>
+
+
+            <h3>Audio</h3>
+            <p>Use the default controls to listen to Yoda. If you wait, you will notice that the sound is on loop. </p>
+            <audio controls loop>
+                <source src="audio/900years.wav" type="audio/wav">
+            </audio>
+            <p>Use these buttons to listen to C-3PO. </p>
+            <button type="button" onclick="PlayC3po()">Play</button>
+            <button type="button" onclick="PauseC3po()">Pause</button>
+            <button type="button" onclick="StopC3po()">Stop</button>
+            <audio id="c3po">
+                <source src="audio/capacity.wav" type="audio/wav">
+            </audio>
+            <p>Click in the screen and hover over the button to listen to the Emperor. </p>
+            <button type="button" onmouseover="PlayEmperor()">Hover Here</button>
+            <audio id="emperor" onended="PlayObiwan()">
+                <source src="audio/willdie.wav" type="audio/wav">
+            </audio>
+            <p>Complete listening to the Emperor, or use the default controls to listen to Obi-Wan Kenobi. </p>
+            <audio controls id="obiwan">
+                <source src="audio/disturb.wav" type="audio/wav">
+            </audio>
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+                //**** Video ****
+                //share a video of me teaching this subject
+                //
+                //
+                //
+
+                //**** Audio ****
+                function PlayC3po(){
+                    //use DOM to play the associated sound
+                    document.getElementById('c3po').play();
+                }
+                function PauseC3po(){
+                    //use DOM to pause the associated sound
+                    document.getElementById('c3po').pause();
+                }
+                function StopC3po(){
+                    //use DOM to pause the associated sound and set its current tome to 0
+                    document.getElementById('c3po').pause();
+                    document.getElementById('c3po').currentTime = 0;
+                }
+                function PlayEmperor(){
+                    document.getElementById('emperor').play();
+                }
+                function PlayObiwan(){
+                    document.getElementById('obiwan').play();
+                }
+    
+                //**** Canvas ****
+                //not sure what this does@
+               
+		</script>
+		
+    </body>
+
+</html>
