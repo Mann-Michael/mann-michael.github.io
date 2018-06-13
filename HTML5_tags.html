@@ -26,8 +26,22 @@
         <main>
             <h1>HTML5 Tags - Video, Audio, and Canvas</h1>
             <h3>Video</h3>
-
-
+            <p>Use the default controls to watch this cityscape. The default video size has been increased manually.</p>
+            <video width ="745" height="420" controls>
+                <source src="video/city1.mp4" type="video/mp4">
+            </video>
+            <p>Use the default controls to watch this cityscape, but be careful, this video loops! </p>
+            <video controls loop>
+                <source src="video/city2.mp4" type="video/mp4">
+            </video>
+            <p>This video plays when you mouse wheel over it. Weird, I know. </p>
+            <video controls id="city3" onwheel="PlayCity3()">
+                <source src="video/city3.mp4" type="video/mp4">
+            </video>            
+            <p>This video interacts like normal, but has a title! Hover over it to find out. </p>
+            <video controls title="Another Boring City Video">
+                <source src="video/city4.mp4" type="video/mp4">
+            </video>            
             <h3>Audio</h3>
             <p>Use the default controls to listen to Yoda. If you wait, you will notice that the sound is on loop. </p>
             <audio controls loop>
@@ -49,16 +63,19 @@
             <audio controls id="obiwan">
                 <source src="audio/disturb.wav" type="audio/wav">
             </audio>
+            <!--<canvas width="300" height="300">
+                
+            </canvas>-->
         </main>
         <footer>
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
         </footer>
 		<script>
                 //**** Video ****
-                //share a video of me teaching this subject
-                //
-                //
-                //
+                function PlayCity3(){
+                    //use DOM to play the associated video
+                    document.getElementById('city3').play();                    
+                }
 
                 //**** Audio ****
                 function PlayC3po(){
@@ -70,7 +87,7 @@
                     document.getElementById('c3po').pause();
                 }
                 function StopC3po(){
-                    //use DOM to pause the associated sound and set its current tome to 0
+                    //use DOM to pause the associated sound and set its current time to 0
                     document.getElementById('c3po').pause();
                     document.getElementById('c3po').currentTime = 0;
                 }
