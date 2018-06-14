@@ -63,9 +63,14 @@
             <audio controls id="obiwan">
                 <source src="audio/disturb.wav" type="audio/wav">
             </audio>
-            <!--<canvas width="300" height="300">
-                
-            </canvas>-->
+            <h3>Canvas</h3>
+            <p>Check out this canvas, doing canvassy things. </p>
+            <canvas id="canvas" width="300" height="300"></canvas>
+            <p>Use these controls to change the canvas. </p>
+            <button type="button" onclick="Fill()">Fill</button>
+            <button type="button" onclick="DrawLines()">Draw Lines</button>
+            <button type="button" onclick="Clear()">Clear</button>
+            <button type="button" onclick="ClearRandom()">Random Clear</button>
         </main>
         <footer>
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
@@ -99,8 +104,37 @@
                 }
     
                 //**** Canvas ****
-                //not sure what this does@
-               
+                //set up canvas as a variable to be used more succinctly
+                var canvasElement = document.getElementById("canvas");
+                //get the context (2d, 3d)
+                var theCanvas = canvasElement.getContext("2d");
+                
+                function Fill(){
+                    theCanvas.fillStyle = "#28d97f";
+                    theCanvas.fillRect(0,0,300,300); 
+                }
+                
+                function DrawLines(){
+                    theCanvas.moveTo(0,0);
+                    theCanvas.lineTo(300,15);
+                    theCanvas.lineTo(15,300);
+                    theCanvas.lineTo(300,30);
+                    theCanvas.lineTo(30,300)
+                    theCanvas.stroke();   
+                }
+                
+                function Clear(){
+                    theCanvas.clearRect(0,0,300,300);
+                }
+
+                function ClearRandom(){
+                    var rnd1 = Math.floor(Math.random() * 301);
+                    var rnd2 = Math.floor(Math.random() * 301);
+                    var rnd3 = Math.floor(Math.random() * 301);
+                    var rnd4 = Math.floor(Math.random() * 301);
+                    theCanvas.clearRect(rnd1,rnd2,rnd3,rnd4);
+                }
+
 		</script>
 		
     </body>
