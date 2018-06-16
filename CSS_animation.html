@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 CSS Animation with JavaScript</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+        <style>
+            /*set up the inital div formatting*/
+            .anim {
+                background-color: green;
+                width: 200px;
+                height: 200px;
+                margin: auto;
+            }
+            /*All classes beyond the first get added when the user does something (usually hit a button)*/
+            /*On hover it changes the BG color and height*/
+            .tranHover {
+                background-color: red;
+                height: 300px;
+                transition: height 4s, background-color 2s;
+            }
+            /*On button click it changes the BG color*/
+            .tranColor {
+                background-color: purple;
+                transition: background-color 12s;
+            }
+            /*On button click it changes the BG color using keyframes! */
+            @keyframes exampleColor {
+                from {background-color: green;}
+                to {background-color: pink ;}
+            }
+            
+            .animColor {
+                animation-name: exampleColor;
+                animation-duration: 2s;    
+            }
+            /*On button click it moves the div back and forth*/
+            @keyframes exampleMovement {
+                0%   {left:0px; top:0px;}
+                25%  {left:100px; top:0px;}
+                50%  {left:0px; top:0px;}
+                75%  {left:-100px; top:0px;}
+                100% {left:0px; top:0px;}
+            }
+            .animMovement {
+                animation-name: exampleMovement;
+                animation-duration: 2s;
+                animation-iteration-count: 2;
+                position: relative;
+            }
+            /*On button click it changes the width*/
+            @keyframes exampleSize {
+                0%   {width: 200px;}
+                25%  {width: 225px;}
+                50%  {width: 250px;}
+                75%  {width: 275px;}
+                100% {width: 300px;}
+            }
+            .animSize {
+                animation-name: exampleSize;
+                animation-duration: 4s;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header>
+            <div id="header-block">
+            </div>
+            <a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+        </header>
+        <nav class="content">
+            <ul>
+                <li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+                <li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+                <li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+                <li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+                <li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+                <li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>CSS Animation with JavaScript</h1>
+            <div class="anim" onmouseover="PlayHoverTran()"></div>
+            <button type="button" onclick="PlayColorAnim()">Change Color Animation</button>
+            <button type="button" onclick="PlayColorTran()">Change Color Transition</button>
+            <button type="button" onclick="PlayMoveAnim()">Move</button>
+            <button type="button" onclick="PlaySizeAnim()">Grow</button>
+            <button type="button" onclick="ResetAnims()">Reset Animations</button>
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+                    //set up the div to be used more easily later
+                    var animDiv = document.getElementsByClassName('anim')[0];
+                    
+                    //Each function adds a new class to the anim div to make it do stuff!
+                    function PlayColorAnim(){
+                        animDiv.classList.add('animColor');
+                    }
+                    function PlayColorTran(){
+                        animDiv.classList.add('tranColor');
+                    }
+                    function PlayMoveAnim(){
+                        animDiv.classList.add('animMovement');
+                    }
+                    function PlaySizeAnim(){
+                        animDiv.classList.add('animSize');
+                    }
+                    function PlayHoverTran(){
+                        animDiv.classList.add('tranHover');
+                    }
+                    //removes the class from the anim div so that it can be replayed
+                    function ResetAnims() {
+                        animDiv.classList.remove('animColor');
+                        animDiv.classList.remove('animMovement');
+                        animDiv.classList.remove('animSize');
+                        animDiv.classList.remove('tranHover');
+                        animDiv.classList.remove('tranColor');
+                    }
+		</script>
+
+		
+    </body>
+
+</html>
