@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 CSS Animation with JavaScript</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+        
+        <style>
+            /*set up the inital pic formatting*/
+            #terra {
+                padding: 0px;
+                margin: auto;
+                width: calc(576px / 3);
+                height: 190px;
+                background: url(images/terra/spritesheet.png);
+            }
+            .idle {
+                animation-name: idle;
+                animation-duration: 2s, .5s, 2s;
+                animation-timing-function: steps(3, end);
+                animation-iteration-count: infinite;
+            }
+            
+            @keyframes idle
+            {
+                from {
+                    background-position: 0;
+                }
+                to {
+                    background-position: -576px;
+                }
+            }
+
+            .walk {
+                animation-name: walk;
+                animation-duration: .9s, .4s, .9s, .4s;
+                animation-timing-function: steps(4, end);
+                animation-iteration-count: infinite;
+            }
+
+            @keyframes walk
+            {
+                from {
+                    background-position: -576px;
+                }
+                to {
+                    background-position: -1344px;
+                }
+            }
+            
+        </style>
+    </head>
+    <body onload="EventOnLoad()">
+        <header>
+            <div id="header-block">
+            </div>
+            <a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+        </header>
+        <nav class="content">
+            <ul>
+                <li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+                <li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+                <li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+                <li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+                <li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+                <li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>Standard JavaScript Events</h1>
+            <h3>Custom CSS Animation</h3>
+            <p></p>
+            <div id="terra"></div>
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+		<script>
+                    //set up the div to be used more easily later
+                    var spriteTerra = document.getElementById('terra');
+                    
+                    spriteTerra.addEventListener("click", EventClick);
+                    //spriteTerra.addEventListener("mouseover", EventHover);
+                    //spriteTerra.addEventListener("mouseout", EventHoverOut);
+                    //spriteTerra.addEventListener("touchstart", EventTouchStart);
+                    //spriteTerra.addEventListener("touchend", EventTouchEnd);
+                    spriteTerra.addEventListener("load", EventOnLoad);
+                    
+                    function EventClick(){
+                        //Set up an idle counter
+                        var countIdle = document.getElementsByClassName('idle').length;
+                        //check to see if the character is idle using the counter
+                        if (countIdle >= 1) {
+                            //if the character is idle, remove idle and add walk
+                            spriteTerra.classList.remove('idle');
+                            spriteTerra.classList.add('walk');
+                        } else {
+                            //if the character is walking, remove walk and add idle
+                            spriteTerra.classList.remove('walk');
+                            spriteTerra.classList.add('idle');
+                        }
+                    }
+                    function EventOnLoad(){
+                        //on load the character starts idle
+                        spriteTerra.classList.add('idle');
+                    }
+
+		</script>
+
+		
+    </body>
+
+</html>
