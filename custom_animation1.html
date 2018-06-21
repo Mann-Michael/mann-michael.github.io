@@ -6,7 +6,6 @@
 		<link href="style.css" type="text/css" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
-        
         <style>
             /*set up the inital pic formatting*/
             #terra {
@@ -49,7 +48,6 @@
                     background-position: -1344px;
                 }
             }
-            
         </style>
     </head>
     <body onload="EventOnLoad()">
@@ -78,35 +76,31 @@
         <footer>
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
         </footer>
-		<script>
-                    //set up the div to be used more easily later
-                    var spriteTerra = document.getElementById('terra');
-                    
-                    spriteTerra.addEventListener("click", EventClick);
-                    spriteTerra.addEventListener("load", EventOnLoad);
-                    
-                    function EventClick(){
-                        //Set up an idle counter
-                        var countIdle = document.getElementsByClassName('idle').length;
-                        //check to see if the character is idle using the counter
-                        if (countIdle >= 1) {
-                            //if the character is idle, remove idle and add walk
-                            spriteTerra.classList.remove('idle');
-                            spriteTerra.classList.add('walk');
-                        } else {
-                            //if the character is walking, remove walk and add idle
-                            spriteTerra.classList.remove('walk');
-                            spriteTerra.classList.add('idle');
-                        }
-                    }
-                    function EventOnLoad(){
-                        //on load the character starts idle
-                        spriteTerra.classList.add('idle');
-                    }
+        <script>
+            //set up the div to be used more easily later
+            var spriteTerra = document.getElementById('terra');
 
-		</script>
+            spriteTerra.addEventListener("click", EventClick);
+            spriteTerra.addEventListener("load", EventOnLoad);
 
-		
+            function EventClick(){
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteTerra.classList.remove('idle');
+                    spriteTerra.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteTerra.classList.remove('walk');
+                    spriteTerra.classList.add('idle');
+                }
+            }
+            function EventOnLoad(){
+                //on load the character starts idle
+                spriteTerra.classList.add('idle');
+            }
+        </script>
     </body>
-
 </html>
