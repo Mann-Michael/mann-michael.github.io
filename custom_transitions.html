@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Michael Mann .tech | CIT 261 CSS Custom Transitions</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+        <style>
+            .animMenu {
+                min-width: 840px;
+            }
+
+            .animMenu ul {
+                padding-left: 0px;
+                margin-bottom: 0px;
+            }
+            .animMenu li {
+                list-style-type: none;
+                text-align: center;	
+            }
+
+            .animMenu li {
+                display: inline-block;
+                padding: 30px 40px 30px 40px;
+            }
+
+            .animMenu img {
+                width: 75%;
+            }
+            
+            .link {
+                filter: blur(1px) grayscale(75%);
+                opacity: 0.5;
+            }
+            
+            .link:hover {
+                opacity: 1;
+                filter: blur(0px) grayscale(0%);
+                transition: opacity 0.5s, filter 0.5s linear;
+            }
+            
+            .link:active {
+                opacity: 1;
+                filter: blur(0px) grayscale(0%) brightness(200%);
+                transition: opacity 0.1s, filter 0.1s linear;
+            }
+
+        </style>
+    </head>
+    <body onload="EventOnLoad()">
+        <header>
+            <div id="header-block">
+            </div>
+            <a href="index.html"><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+        </header>
+        <nav class="content">
+            <ul>
+                <li><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+                <li><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+                <li><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+                <li><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+                <li><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+                <li><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+            </ul> 
+        </nav>
+        <main>
+            <h1>CSS Custom Transitions</h1>
+            <h3>Transitional Menu</h3>
+            <p>Hover over and click on the menu below to see it transition.</p>
+            <div class="animMenu">
+                <ul>
+                    <li class="link"><a href="#"><img src="images/ui/practice.png" alt="Practice Page"/></a></li>
+                    <li class="link"><a href="#"><img src="images/ui/about.png" alt="About Page"/></a></li>
+                    <li class="link"><a href="#"><img src="images/ui/styles.png" alt="Styles Page"/></a></li>
+                    <li class="link"><a href="#"><img src="images/ui/contact.png" alt="Contact Page"/></a></li>
+                    <li class="link"><a href="#"><img src="images/ui/projects.png" alt="Projects Page"/></a></li>
+                    <li class="link"><a href="#"><img src="images/ui/experience.png" alt="Experience Page"/></a></li>
+                </ul> 
+            </div>
+        </main>
+        <footer>
+            <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
+        </footer>
+        <script>
+
+        </script>
+    </body>
+</html>
