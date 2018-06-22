@@ -8,44 +8,55 @@
 		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
         
         <style>
-            /*set up the inital pic formatting*/
-            .event {
+            main img {
+                padding: 10px;
+            }
 
+            /*On load it transforms in various ways*/
+            @keyframes rotate {
+                0% {transform: rotate(0deg);}
+                100% {transform: rotate(-360deg); }
             }
-            /*All classes beyond the first get added when the user does something (usually hit a button)*/
-            /*On hover it changes the picture to greyscale*/
-            .eventHover {
-                filter: grayscale(100%);
-                transition: filter 1s;
+            #rotate {
+                animation-name: rotate;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
             }
-            /*On hover out it changes the picture to back to normal*/
-            .eventHoverOut {
-                filter: grayscale(0%);
-                transition: filter 0.5s;
+            @keyframes skew {
+                0% {transform: skew(0deg, 0deg);}
+                25% {transform: skew(45deg, 45deg);}
+                50% {transform: skew(0deg, 0deg);}
+                75% {transform: skew(-45deg, -45deg); }
+                100 {transform: skew(0deg, 0deg); }
             }
-            .eventClick {
-                height: 300px;
-                transition: height 4s;
+            #skew {
+                animation-name: skew;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
             }
-            .eventTouchStart {
-                filter: hue-rotate(180deg);
-                transition: filter 2s;
+            @keyframes scale {
+                0% {transform: scale(1, 1);}
+                25% {transform: scale(.5, 1.5);}
+                50% {transform: scale(1, 1);}
+                75% {transform: scale(1.5, .5); }
+                100 {transform: scale(1, 1); }
             }
-            .eventTouchEnd {
-                filter: hue-rotate(0deg);
-                transition: filter 2s;
+            #scale {
+                animation-name: scale;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
             }
-            /*On button click it changes the width*/
-            @keyframes eventSize {
-                0%   {height: 100px;}
-                25%  {height: 125px;}
-                50%  {height: 150px;}
-                75%  {height: 175px;}
-                100% {height: 200px;}
+            @keyframes translate {
+                0% {transform: translate(0px, 0px);}
+                25% {transform: translate(20px, 0px);}
+                50% {transform: translate(20px, 20px);}
+                75% {transform: translate(0px, 20px); }
+                100 {transform: translate(0px, 0px); }
             }
-            .eventOnLoad {
-                animation-name: eventSize;
-                animation-duration: 4s;
+            #translate {
+                animation-name: translate;
+                animation-duration: 10s;
+                animation-iteration-count: infinite;
             }
         </style>
     </head>
@@ -66,75 +77,18 @@
             </ul> 
         </nav>
         <main>
-            <h1>Standard JavaScript Events</h1>
-            <h3>Hover, Touch Start, and Click</h3>
-            <p>Interact with the picture using various events! The events are: load, hover, click, touch start and touch end. </p>
-            <div>
-                <img id="event" src="images\about-footer.jpg" alt="Mario" height="100">
-                <br>
-                <span id="message1"></span>
-            </div>
-            <h3>Keypress</h3>
-            <p>Input text into the text field to have it copy your keys on "key up" event. </p>
-            <form>
-                <input type="text" id="input">
-                <br>
-                <span id="message2"></span>
-            </form>
-            
+            <h1>CSS Custom Transforms</h1>
+            <h3>Transformational Picture</h3>
+            <p>Watch as this picture transforms in different ways on page load. </p>
+            <img id="rotate" src="images\link.png" alt="Rotating Link">
+            <img id="skew" src="images\link.png" alt="Skewing Link">
+            <img id="scale" src="images\link.png" alt="Scaling Link">
+            <img id="translate" src="images\link.png" alt="Translating Link">
         </main>
         <footer>
             <p>All content &copy; Michael Mann. This website is made for school and should not be duplicated.</p>
         </footer>
 		<script>
-                    //set up the div to be used more easily later
-                    var eventPic = document.getElementById('event');
-                    var eventInput = document.getElementById('input')
-                    var eventMessage1 = document.getElementById('message1');
-                    var eventMessage2 = document.getElementById('message2');
-                    
-                    eventPic.addEventListener("click", EventClick);
-                    eventPic.addEventListener("mouseover", EventHover);
-                    eventPic.addEventListener("mouseout", EventHoverOut);
-                    eventPic.addEventListener("touchstart", EventTouchStart);
-                    eventPic.addEventListener("touchend", EventTouchEnd);
-                    eventPic.addEventListener("load", EventOnLoad);
-                    
-                    eventInput.addEventListener("keyup", EventKeyUp);
-                    
-                    
-                    //Each function adds a new class to the anim div to make it do stuff!
-                    function EventClick(){
-                        eventMessage1.innerHTML = "You clicked the picture!";
-                        eventPic.classList.add('eventClick');
-                    }
-                    function EventHover(){
-                        eventMessage1.innerHTML = "You hovered over the picture!";
-                        eventPic.classList.add('eventHover');
-                        eventPic.classList.remove('eventHoverOut');
-                    }
-                    function EventHoverOut(){
-                        eventMessage1.innerHTML = "You hovered off the picture!";
-                        eventPic.classList.add('eventHoverOut');
-                        eventPic.classList.remove('eventHover');
-                    }
-                    function EventTouchStart(){
-                        eventMessage1.innerHTML = "You started a touch event!";
-                        eventPic.classList.add('eventTouchStart');
-                        eventPic.classList.remove('eventTouchEnd');
-                    }
-                    function EventTouchEnd(){
-                        eventMessage1.innerHTML = "You ended a touch event!";
-                        eventPic.classList.add('eventTouchEnd');
-                        eventPic.classList.remove('eventTouchStart');
-                    }
-                    function EventOnLoad(){
-                        eventMessage1.innerHTML = "The picture loaded successfully!";
-                        eventPic.classList.add('eventOnLoad');
-                    }
-                    function EventKeyUp(){
-                        eventMessage2.innerHTML = eventInput.value;
-                    }
 		</script>
 
 		
