@@ -114,7 +114,7 @@
 			wsRequest.onreadystatechange = function () {
                             //This function checks the ready state and status to make sure its finished and OK
                             if (wsRequest.readyState == 4 && wsRequest.status == 200) {
-                                var wsOutputString = sRequest.responseText;
+                                var wsOutputString = wsRequest.responseText;
                                 document.getElementById('divWebServiceOutput').innerHTML = wsOutputString;
                             }
                         }
