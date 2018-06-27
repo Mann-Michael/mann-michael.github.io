@@ -32,6 +32,8 @@
 			<div id="divASyncJSONOutput"></div>
 			<h3>Synchronous JSON Example</h3>
 			<div id="divSyncJSONOutput"></div>
+                        <h3>Web Service Request Example</h3>
+			<div id="divWebServiceOutput"></div>
 
         </main>
         <footer>
@@ -104,6 +106,27 @@
 			
 			// Print the response to the HTML
 			document.getElementById('divSyncJSONOutput').innerHTML = sOutputString;
+                        
+                        //****Web Service Example****
+                        //
+			// Create XMLHttpRequest Object
+			var wsRequest = new XMLHttpRequest();
+			wsRequest.onreadystatechange = function () {
+                            //This function checks the ready state and status to make sure its finished and OK
+                            if (wsRequest.readyState == 4 && wsRequest.status == 200) {
+                                var wsOutputString = sRequest.responseText;
+                                document.getElementById('divWebServiceOutput').innerHTML = wsOutputString;
+                            }
+                        }
+            
+                        // Open (initialize) the request
+			wsRequest.open("GET", "https://httpbin.org/get"); 
+			wsRequest.send();
+                        
+
+                        
+
+                        
 		</script>
 		
     </body>
