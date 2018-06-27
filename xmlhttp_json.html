@@ -33,7 +33,7 @@
 			<h3>Synchronous JSON Example</h3>
 			<div id="divSyncJSONOutput"></div>
                         <h3>Web Service Request Example</h3>
-                        <p>This information might look like junk, but it is all part of the </p>
+                        <p>This information was received from <a href="https://httpbin.org/get">https://httpbin.org/get</a>.</p>
 			<div id="divWebServiceOutput"></div>
 
         </main>
@@ -115,10 +115,10 @@
 			wsRequest.onreadystatechange = function () {
                             //This function checks the ready state and status to make sure its finished and OK
                             if (wsRequest.readyState == 4 && wsRequest.status == 200) {
-                                var wsOutputString = wsRequest.getAllResponseHeaders;
+                                var wsOutputString = wsRequest.responseText;
                                 document.getElementById('divWebServiceOutput').innerHTML = wsOutputString;
                             }
-                        }
+                        };
             
                         // Open (initialize) the request, get header information from this website
                         
