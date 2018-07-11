@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Project</title>
+        <meta charset="utf-8"/>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+        <style>
+            /*set up the inital pic formatting*/
+            #terra {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet.png);
+            }
+            #terra2 {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet2.png);
+            }
+            #terra3 {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet3.png);
+            }   
+            #terra4 {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet4.png);
+            }   
+            #terra5 {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet5.png);
+            }   
+            #terra6 {
+                padding: 0px;
+                margin: auto;
+                width: calc(1152px / 3);
+                height: 380px;
+                background: url(images/terra/spritesheet6.png);
+            }               
+            .idle {
+                animation-name: idle;
+                animation-duration: 2s, .5s, 2s;
+                animation-timing-function: steps(3, end);
+                animation-iteration-count: infinite;
+            }
+            
+            @keyframes idle
+            {
+                from {
+                    background-position: 0;
+                }
+                to {
+                    background-position: -1152px;
+                }
+            }
+
+            .walk {
+                animation-name: walk;
+                animation-duration: .9s, .4s, .9s, .4s;
+                animation-timing-function: steps(4, end);
+                animation-iteration-count: infinite;
+            }
+
+            @keyframes walk
+            {
+                from {
+                    background-position: -1152px;
+                }
+                to {
+                    background-position: -2688px;
+                }
+            }
+        </style>
+    </head>
+    <body onload="EventOnLoad()">
+        <header>
+            <div id="header-block">
+            </div>
+            <a><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+        </header>
+        <nav>
+            <a onclick="NavBack()"><img src="images/ui/nav-up-arrow.png" alt="Previous Character"/></a>
+        </nav>
+        <main>
+            <div id="main-container"></div>
+            
+        </main>
+        <footer>
+            <a><img onclick="NavForward()" src="images/ui/nav-down-arrow.png" alt="Next Character"/></a>
+        </footer>
+        <script>
+            //define unchanging variables: character data, container, default navcounter
+            //make nav back and forward
+            //nav back removes one from counter
+            //nav forward adds one to counter
+            //inject character html using info from nav counter
+            //set animations based on actions: load, touch, hold, swipe up, swipe down, swipe left, swipe right
+
+            //**** Default Variables ****
+            //Set unchanging values for container div, characters data, character data length, default nav counter
+            //Set container div
+            var spriteContainer = document.getElementById('main-container');
+            //Get character data
+            //!! Will be done from XMLHTTP Firebase in the future
+            var characters = {
+                0 : {"name" : "terra", "anim1" : "anim1_name", "anim2" : "anim2_name",  "anim3" : "anim3_name",  "anim4" : "anim4_name",  "anim5" : "anim5_name",  "anim6" : "anim6_name"}, 
+                1 : {"name" : "terra2", "anim1" : "anim1_name2", "anim2" : "anim2_name2",  "anim3" : "anim3_name2",  "anim4" : "anim4_name2",  "anim5" : "anim5_name2",  "anim6" : "anim6_name2"}, 
+                2 : {"name" : "terra3", "anim1" : "anim1_name3", "anim2" : "anim2_name3",  "anim3" : "anim3_name3",  "anim4" : "anim4_name3",  "anim5" : "anim5_name3",  "anim6" : "anim6_name3"}, 
+                3 : {"name" : "terra4", "anim1" : "anim1_name4", "anim2" : "anim2_name4",  "anim3" : "anim3_name4",  "anim4" : "anim4_name4",  "anim5" : "anim5_name4",  "anim6" : "anim6_name4"}, 
+                4 : {"name" : "terra5", "anim1" : "anim1_name5", "anim2" : "anim2_name5",  "anim3" : "anim3_name5",  "anim4" : "anim4_name5",  "anim5" : "anim5_name5",  "anim6" : "anim6_name5"}, 
+                5 : {"name" : "terra6", "anim1" : "anim1_name6", "anim2" : "anim2_name6",  "anim3" : "anim3_name6",  "anim4" : "anim4_name6",  "anim5" : "anim5_name6",  "anim6" : "anim6_name6"} 
+            };
+            //Set character array length to be used later
+            var charArrLength = Object.keys(characters).length;
+            //Set default nav counter
+            var navCounter = 0;
+
+            //**** Navigation Functions ****
+            //NavBack checks to see if we are at 0, if we are, it goes to the end, if we are not, it removes one and then it calls set character
+            //NEEDS: navCounter, character array length, SetCharacter Function
+            function NavBack(){
+                if (navCounter === 0){
+                    navCounter = charArrLength - 1;
+                } else {
+                    navCounter = navCounter - 1;                    
+                }
+                SetCharacterALL();
+            }
+            //NavForward checks to see if we are at max, if we are, it goes to the begining, if we are not, it adds one and then it calls set character
+            //NEEDS: navCounter, character array length, SetCharacter Function
+            function NavForward(){
+                if (navCounter === charArrLength - 1){
+                    navCounter = 0;
+                } else {
+                    navCounter = navCounter + 1;                    
+                }
+                SetCharacterALL();
+            }
+            
+            //**** Character Functions ****
+            //SetCharacterALL runs SetCharacter, SetDefault
+            function SetCharacterALL(){
+                //Set new character
+                SetCharacterHTML();
+                //Set new character functionality
+                SetDefault();
+            }
+            //SetCharacterHTML sets the innerHTML of the container to the correct character based on navCounter
+            //NEEDS: navCounter, character array
+            function SetCharacterHTML(){
+                //set current character
+                var currentCharacterDIV = characters[navCounter]["name"];
+                //replace innerHTML with current character div
+                spriteContainer.innerHTML = '<div id="' + currentCharacterDIV + '"></div>';
+            }
+            //SetDefault sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
+            //NEEDS: current character div with no classes
+            function SetDefault() {
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //figure out how to define touch, touch hold, swipe up, swipe down, swipe left, swipe right
+                spriteCharacter.addEventListener("click", EventClick);
+//                spriteCharacter.addEventListener("touch", EventTouch);
+//                spriteCharacter.addEventListener("hold", EventHold);
+//                spriteCharacter.addEventListener("swipeup", EventSwipeUp);
+//                spriteCharacter.addEventListener("swipedown", EventSwipeDown);
+//                spriteCharacter.addEventListener("swipeleft", EventSwipeLeft);
+//                spriteCharacter.addEventListener("swiperight", EventSwipeRight);
+                spriteCharacter.classList.add('idle');
+            }
+            
+            //**** Event Functions ****
+            function EventClick(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+
+            function EventTouch(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+
+            function EventHold(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+
+            function EventSwipeUp(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+
+            function EventSwipeDown(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+
+            function EventSwipeLeft(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }
+            
+            function EventSwipeRight(){
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                //Set up an idle counter
+                var countIdle = document.getElementsByClassName('idle').length;
+                //check to see if the character is idle using the counter
+                if (countIdle >= 1) {
+                    //if the character is idle, remove idle and add walk
+                    spriteCharacter.classList.remove('idle');
+                    spriteCharacter.classList.add('walk');
+                } else {
+                    //if the character is walking, remove walk and add idle
+                    spriteCharacter.classList.remove('walk');
+                    spriteCharacter.classList.add('idle');
+                }
+            }            
+
+            function EventOnLoad(){
+                SetCharacterALL();
+            }
+        </script>
+    </body>
+</html>
