@@ -89,7 +89,7 @@
         <header>
             <div id="header-block">
             </div>
-            <a><img src="images/ui/logo-content.png" alt="Michael Mann .tech Logo"/></a>
+            <h1>FRIENDS</h1>
         </header>
         <nav>
             <a onclick="NavBack()"><img src="images/ui/nav-up-arrow.png" alt="Previous Character"/></a>
@@ -164,7 +164,9 @@
                 //set current character
                 var currentCharacterDIV = characters[navCounter]["name"];
                 //replace innerHTML with current character div
-                spriteContainer.innerHTML = '<div id="' + currentCharacterDIV + '"></div>';
+                var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
+                
+                spriteContainer.innerHTML = '<div id="' + currentCharacterDIV + '">' + currentAudioWalk + '</div>';
             }
             //SetDefault sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
             //NEEDS: current character div with no classes
@@ -183,6 +185,14 @@
             
             //**** Event Functions ****
             function EventClick(){
+                //check if walking is playing, if it isnt, then play it, if it is, then pause it
+                var audioWalk = document.getElementById('audioWalk');
+                if (audioWalk.duration > 0 && !audioWalk.paused){
+                    audioWalk.pause();
+                } else {
+                    audioWalk.play();
+                }
+                //set up sprite character for animation toggling
                 var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
                 //Set up an idle counter
                 var countIdle = document.getElementsByClassName('idle').length;
