@@ -162,11 +162,15 @@
             //NEEDS: navCounter, character array
             function SetCharacterHTML(){
                 //set current character
-                var currentCharacterDIV = characters[navCounter]["name"];
-                //replace innerHTML with current character div
+                var currentCharacter = characters[navCounter]["name"];
+                //set up audio file for walking
                 var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
-                
-                spriteContainer.innerHTML = '<div id="' + currentCharacterDIV + '">' + currentAudioWalk + '</div>';
+                //set up audio file for laughing
+                var currentAudioLaugh = '<audio id="audio' + currentCharacter + 'Laugh" controls><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
+                //set up audio file for laughing
+                var currentAudioWarp = '<audio id="audio' + currentCharacter + 'Warp" controls><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
+                //replace innerHTML with current character div
+                spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioLaugh + currentAudioWarp + '</div>';
             }
             //SetDefault sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
             //NEEDS: current character div with no classes
