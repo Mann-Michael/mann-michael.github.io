@@ -83,6 +83,21 @@
                     background-position: -2688px;
                 }
             }
+            
+            .warp {
+                animation-name: warp;
+                animation-duration: 2s;
+                animation-iteration-count: 1;
+            }
+            
+            @keyframes warp {
+                0% {transform: skew(0deg, 0deg);}
+                25% {transform: skew(45deg, 45deg);}
+                50% {transform: skew(0deg, 0deg);}
+                75% {transform: skew(-45deg, -45deg); }
+                100 {transform: skew(0deg, 0deg); }
+            }
+
         </style>
     </head>
     <body onload="EventOnLoad()">
@@ -107,7 +122,7 @@
             //nav back removes one from counter
             //nav forward adds one to counter
             //inject character html using info from nav counter
-            //set animations based on actions: load, touch, hold, swipe up, swipe down, swipe left, swipe right
+            //set animations based on actions: load, swipe left or swipe right
 
             //**** Default Variables ****
             //Set unchanging values for container div, characters data, character data length, default nav counter
@@ -127,6 +142,11 @@
             var charArrLength = Object.keys(characters).length;
             //Set default nav counter
             var navCounter = 0;
+            //set default class names
+            var classWarp = "warp";
+            var classWalk = "walk";
+            var classIdle = "idle";
+            var classLaugh = "laugh";
 
             //**** Navigation Functions ****
             //NavBack checks to see if we are at 0, if we are, it goes to the end, if we are not, it removes one and then it calls set character
@@ -155,8 +175,10 @@
             function SetCharacterALL(){
                 //Set new character
                 SetCharacterHTML();
-                //Set new character functionality
+                //Remove all classes from current div
                 SetDefault();
+                //Set new character functionality
+                SetEvents();
             }
             //SetCharacterHTML sets the innerHTML of the container to the correct character based on navCounter
             //NEEDS: navCounter, character array
@@ -164,7 +186,7 @@
                 //set current character
                 var currentCharacter = characters[navCounter]["name"];
                 //set up audio file for walking
-                var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
+                var currentAudioWalk = '<audio id="audioWalk"><source src="audio/walking.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
                 var currentAudioLaugh = '<audio id="audioLaugh"><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
@@ -172,158 +194,99 @@
                 //replace innerHTML with current character div
                 spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioLaugh + currentAudioWarp + '</div>';
             }
-            //SetDefault sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
+            
+            //SetDefault removes all current classes from the div and adds idle
             //NEEDS: current character div with no classes
-            function SetDefault() {
+            function SetDefault(){
                 var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //figure out how to define touch, touch hold, swipe up, swipe down, swipe left, swipe right
-                spriteCharacter.addEventListener("click", EventClick);
+                if (spriteCharacter.classList.contains(classWarp)){
+                    spriteCharacter.classList.remove(classWarp);
+                }
+                if (spriteCharacter.classList.contains(classWalk)){
+                    spriteCharacter.classList.remove(classWalk);
+                }
+                if (spriteCharacter.classList.contains(classIdle)){
+                    spriteCharacter.classList.remove(classIdle);
+                }
+                if (spriteCharacter.classList.contains(classLaugh)){
+                    spriteCharacter.classList.remove(classLaugh);
+                }
+            }
+            
+            //SetEvents sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
+            //NEEDS: current character div with no classes
+            function SetEvents() {
+                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
+                var swipeCounter = 0;
+                var swipeMax = 3;
+                //figure out how to define touch, swipe left, swipe right
+                //spriteCharacter.addEventListener("click", EventClick);
                 spriteCharacter.addEventListener("touchstart", function(event){
                     touchStartX = event.touches[0].screenX;
                 });
                 spriteCharacter.addEventListener("touchend", function(event){
+                    //swipe left to shuffle directions to the right, swipe right to shuffle animations to the left
                     touchEndX = event.changedTouches[0].screenX;
+                    //make case statement of functions, make counter variable, increment or decrement counter, run 
                     if (touchEndX < touchStartX){
-                        var audioWarp = document.getElementById('audioWarp');
-                        audioWarp.play();
-                        return;
+                        if (swipeCounter === swipeMax) {
+                            swipeCounter = 0;
+                        } else{
+                            swipeCounter = swipeCounter + 1;                            
+                        }
                     } 
                     if(touchEndX > touchStartX){
-                        var audioLaugh = document.getElementById('audioLaugh');
-                        audioLaugh.play();
-                        return;
-                    }{passive: true}});
-//                spriteCharacter.addEventListener("touch", EventTouch);
-//                spriteCharacter.addEventListener("hold", EventHold);
-//                spriteCharacter.addEventListener("swipeup", EventSwipeUp);
-//                spriteCharacter.addEventListener("swipedown", EventSwipeDown);
-//                spriteCharacter.addEventListener("swipeleft", EventSwipeLeft);
-//                spriteCharacter.addEventListener("swiperight", EventSwipeRight);
-                spriteCharacter.classList.add('idle');
+                        if (swipeCounter === 0) {
+                            swipeCounter = swipeMax;
+                        } else{
+                            swipeCounter = swipeCounter - 1;
+                        }
+                    }
+                    switch (swipeCounter) {
+                        case 0:
+                            AnimIdle(spriteCharacter);
+                            break;
+                        case 1:
+                            AnimWalk(spriteCharacter);
+                            break;
+                        case 2:
+                            AnimWarp(spriteCharacter);
+                            break;
+                        case 3:
+                            AnimLaugh(spriteCharacter);
+                            break;
+                    }
+                });
             }
             
-            //**** Event Functions ****
-            function EventClick(){
-                //check if walking is playing, if it isnt, then play it, if it is, then pause it
+            function AnimIdle(spriteCharacter) {
+            //Sets to default, adds animation class
                 var audioWalk = document.getElementById('audioWalk');
-                if (audioWalk.duration > 0 && !audioWalk.paused){
-                    audioWalk.pause();
-                } else {
-                    audioWalk.play();
-                }
-                //set up sprite character for animation toggling
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
+                SetDefault();
+                spriteCharacter.classList.add(classIdle);
+                audioWalk.pause();
             }
-          
-
-            function EventTouch(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
+            function AnimWalk(spriteCharacter) {
+            //Sets to default, adds animation class, plays sound
+                var audioWalk = document.getElementById('audioWalk');
+                SetDefault();
+                spriteCharacter.classList.add(classWalk);
+                audioWalk.play();
             }
-
-            function EventHold(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
+            function AnimWarp(spriteCharacter) {
+            //Sets to default, adds animation class, plays sound
+                var audioWarp = document.getElementById('audioWarp');
+                SetDefault();
+                spriteCharacter.classList.add(classWarp);
+                audioWarp.play();
             }
-
-            function EventSwipeUp(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
+            function AnimLaugh(spriteCharacter) {
+            //Sets to default, adds animation class, plays sound
+                var audioLaugh = document.getElementById('audioLaugh');
+                SetDefault();
+                spriteCharacter.classList.add(classLaugh);
+                audioLaugh.play();
             }
-
-            function EventSwipeDown(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
-            }
-
-            function EventSwipeLeft(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
-            }
-            
-            function EventSwipeRight(){
-                var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
-                //Set up an idle counter
-                var countIdle = document.getElementsByClassName('idle').length;
-                //check to see if the character is idle using the counter
-                if (countIdle >= 1) {
-                    //if the character is idle, remove idle and add walk
-                    spriteCharacter.classList.remove('idle');
-                    spriteCharacter.classList.add('walk');
-                } else {
-                    //if the character is walking, remove walk and add idle
-                    spriteCharacter.classList.remove('walk');
-                    spriteCharacter.classList.add('idle');
-                }
-            }            
-
             function EventOnLoad(){
                 SetCharacterALL();
             }
