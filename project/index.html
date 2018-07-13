@@ -166,9 +166,9 @@
                 //set up audio file for walking
                 var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
-                var currentAudioLaugh = '<audio id="audio' + currentCharacter + 'Laugh" controls><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
+                var currentAudioLaugh = '<audio id="audioLaugh"><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
-                var currentAudioWarp = '<audio id="audio' + currentCharacter + 'Warp" controls><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
+                var currentAudioWarp = '<audio id="audioWarp"><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
                 //replace innerHTML with current character div
                 spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioLaugh + currentAudioWarp + '</div>';
             }
@@ -178,6 +178,21 @@
                 var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
                 //figure out how to define touch, touch hold, swipe up, swipe down, swipe left, swipe right
                 spriteCharacter.addEventListener("click", EventClick);
+                spriteCharacter.addEventListener("touchstart", function(event){
+                    touchStartX = event.touches[0].screenX;
+                });
+                spriteCharacter.addEventListener("touchend", function(event){
+                    touchEndX = event.changedTouches[0].screenX;
+                    if (touchEndX < touchStartX){
+                        var audioWarp = document.getElementById('audioWarp');
+                        audioWarp.play();
+                        return;
+                    } 
+                    if(touchEndX > touchStartX){
+                        var audioLaugh = document.getElementById('audioLaugh');
+                        audioLaugh.play();
+                        return;
+                    }});
 //                spriteCharacter.addEventListener("touch", EventTouch);
 //                spriteCharacter.addEventListener("hold", EventHold);
 //                spriteCharacter.addEventListener("swipeup", EventSwipeUp);
@@ -211,6 +226,7 @@
                     spriteCharacter.classList.add('idle');
                 }
             }
+          
 
             function EventTouch(){
                 var spriteCharacter = document.getElementById(characters[navCounter]["name"]);
