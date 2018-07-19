@@ -5,106 +5,12 @@
         <meta charset="utf-8"/>
 		<link href="style.css" type="text/css" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/css?family=Antic+Slab" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
-        <style>
-            /*set up the inital pic formatting*/
-            #terra {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet.png);
-            }
-            #terra2 {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet2.png);
-            }
-            #terra3 {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet3.png);
-            }   
-            #terra4 {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet4.png);
-            }   
-            #terra5 {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet5.png);
-            }   
-            #terra6 {
-                padding: 0px;
-                margin: auto;
-                width: calc(1152px / 3);
-                height: 380px;
-                background: url(images/terra/spritesheet6.png);
-            }               
-            .idle {
-                animation-name: idle;
-                animation-duration: 2s, .5s, 2s;
-                animation-timing-function: steps(3, end);
-                animation-iteration-count: infinite;
-            }
-            
-            @keyframes idle
-            {
-                from {
-                    background-position: 0;
-                }
-                to {
-                    background-position: -1152px;
-                }
-            }
-
-            .walk {
-                animation-name: walk;
-                animation-duration: .9s, .4s, .9s, .4s;
-                animation-timing-function: steps(4, end);
-                animation-iteration-count: infinite;
-            }
-
-            @keyframes walk
-            {
-                from {
-                    background-position: -1152px;
-                }
-                to {
-                    background-position: -2688px;
-                }
-            }
-            
-            .warp {
-                animation-name: warp;
-                animation-duration: 2s;
-                animation-iteration-count: 1;
-            }
-            
-            @keyframes warp {
-                0% {transform: skew(0deg, 0deg);}
-                25% {transform: skew(45deg, 45deg);}
-                50% {transform: skew(0deg, 0deg);}
-                75% {transform: skew(-45deg, -45deg); }
-                100 {transform: skew(0deg, 0deg); }
-            }
-
-        </style>
+                <link href="https://fonts.googleapis.com/css?family=Gaegu" rel="stylesheet">
     </head>
     <body onload="EventOnLoad()">
         <header>
-            <div id="header-block">
-            </div>
             <h1>FRIENDS</h1>
+            <h2 id="sprite-name"></h2>
         </header>
         <nav>
             <a onclick="NavBack()"><img src="images/ui/nav-up-arrow.png" alt="Previous Character"/></a>
@@ -128,18 +34,34 @@
             //Set unchanging values for container div, characters data, character data length, default nav counter
             //Set container div
             var spriteContainer = document.getElementById('main-container');
+            var spriteName = document.getElementById('sprite-name');
+            
+            function EventOnLoad(){
+                GetCharacterData();
+//                SetCharacterALL();
+            }
             //Get character data
-            //!! Will be done from XMLHTTP Firebase in the future
-            var characters = {
-                0 : {"name" : "terra", "anim1" : "anim1_name", "anim2" : "anim2_name",  "anim3" : "anim3_name",  "anim4" : "anim4_name",  "anim5" : "anim5_name",  "anim6" : "anim6_name"}, 
-                1 : {"name" : "terra2", "anim1" : "anim1_name2", "anim2" : "anim2_name2",  "anim3" : "anim3_name2",  "anim4" : "anim4_name2",  "anim5" : "anim5_name2",  "anim6" : "anim6_name2"}, 
-                2 : {"name" : "terra3", "anim1" : "anim1_name3", "anim2" : "anim2_name3",  "anim3" : "anim3_name3",  "anim4" : "anim4_name3",  "anim5" : "anim5_name3",  "anim6" : "anim6_name3"}, 
-                3 : {"name" : "terra4", "anim1" : "anim1_name4", "anim2" : "anim2_name4",  "anim3" : "anim3_name4",  "anim4" : "anim4_name4",  "anim5" : "anim5_name4",  "anim6" : "anim6_name4"}, 
-                4 : {"name" : "terra5", "anim1" : "anim1_name5", "anim2" : "anim2_name5",  "anim3" : "anim3_name5",  "anim4" : "anim4_name5",  "anim5" : "anim5_name5",  "anim6" : "anim6_name5"}, 
-                5 : {"name" : "terra6", "anim1" : "anim1_name6", "anim2" : "anim2_name6",  "anim3" : "anim3_name6",  "anim4" : "anim4_name6",  "anim5" : "anim5_name6",  "anim6" : "anim6_name6"} 
-            };
+            //!! XMLHTTP issue is that its not getting the info in time when the other variables load. then when i make it synchronous, it appears to be in a bad format or something. 
+            function GetCharacterData(){
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                //This function checks the ready state and status to make sure its finished and OK
+                if (request.readyState == 4 && request.status == 200) {
+                    characters = JSON.parse(request.responseText);
+                    SetCharacterALL();
+                    return;
+                    }
+                };
+                // Open (initialize) the request, get header information from this website
+                request.open("GET", "https://mmanndottech.firebaseio.com/characters.json", true); 
+                request.send();
+            }
+            var characters;
+            
+
+//            var characters = {0 : {"name" : "terra"}, 1 : {"name" : "terra2"}, 2 : {"name" : "terra3"}, 3 : {"name" : "terra4"}, 4 : {"name" : "terra5"}, 5 : {"name" : "terra6"}};
             //Set character array length to be used later
-            var charArrLength = Object.keys(characters).length;
+            
             //Set default nav counter
             var navCounter = 0;
             //set default class names
@@ -152,6 +74,7 @@
             //NavBack checks to see if we are at 0, if we are, it goes to the end, if we are not, it removes one and then it calls set character
             //NEEDS: navCounter, character array length, SetCharacter Function
             function NavBack(){
+                var charArrLength = Object.keys(characters).length;
                 if (navCounter === 0){
                     navCounter = charArrLength - 1;
                 } else {
@@ -162,6 +85,7 @@
             //NavForward checks to see if we are at max, if we are, it goes to the begining, if we are not, it adds one and then it calls set character
             //NEEDS: navCounter, character array length, SetCharacter Function
             function NavForward(){
+                var charArrLength = Object.keys(characters).length;
                 if (navCounter === charArrLength - 1){
                     navCounter = 0;
                 } else {
@@ -170,9 +94,15 @@
                 SetCharacterALL();
             }
             
+            function SetTitle() {
+                spriteName.innerHTML = characters[navCounter]["name"];
+            }
+            
             //**** Character Functions ****
             //SetCharacterALL runs SetCharacter, SetDefault
             function SetCharacterALL(){
+                //Set title
+                SetTitle();
                 //Set new character
                 SetCharacterHTML();
                 //Remove all classes from current div
@@ -186,11 +116,11 @@
                 //set current character
                 var currentCharacter = characters[navCounter]["name"];
                 //set up audio file for walking
-                var currentAudioWalk = '<audio id="audioWalk"><source src="audio/walking.wav" type="audio/wav"></audio>';
+                var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
-                var currentAudioLaugh = '<audio id="audioLaugh"><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
+                var currentAudioLaugh = '<audio id="audioLaugh" loop><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
                 //set up audio file for laughing
-                var currentAudioWarp = '<audio id="audioWarp"><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
+                var currentAudioWarp = '<audio id="audioWarp" loop><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
                 //replace innerHTML with current character div
                 spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioLaugh + currentAudioWarp + '</div>';
             }
@@ -262,33 +192,40 @@
             function AnimIdle(spriteCharacter) {
             //Sets to default, adds animation class
                 var audioWalk = document.getElementById('audioWalk');
+                var audioLaugh = document.getElementById('audioLaugh');
                 SetDefault();
                 spriteCharacter.classList.add(classIdle);
+                audioLaugh.pause()
                 audioWalk.pause();
             }
             function AnimWalk(spriteCharacter) {
             //Sets to default, adds animation class, plays sound
                 var audioWalk = document.getElementById('audioWalk');
+                var audioWarp = document.getElementById('audioWarp');
                 SetDefault();
                 spriteCharacter.classList.add(classWalk);
+                audioWarp.pause();
                 audioWalk.play();
             }
             function AnimWarp(spriteCharacter) {
             //Sets to default, adds animation class, plays sound
                 var audioWarp = document.getElementById('audioWarp');
+                var audioWalk = document.getElementById('audioWalk');
+                var audioLaugh = document.getElementById('audioLaugh');
                 SetDefault();
                 spriteCharacter.classList.add(classWarp);
+                audioWalk.pause();
+                audioLaugh.pause()
                 audioWarp.play();
             }
             function AnimLaugh(spriteCharacter) {
             //Sets to default, adds animation class, plays sound
                 var audioLaugh = document.getElementById('audioLaugh');
+                var audioWarp = document.getElementById('audioWarp');
                 SetDefault();
                 spriteCharacter.classList.add(classLaugh);
+                audioWarp.pause();
                 audioLaugh.play();
-            }
-            function EventOnLoad(){
-                SetCharacterALL();
             }
         </script>
     </body>
