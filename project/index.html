@@ -48,20 +48,26 @@
                 //This function checks the ready state and status to make sure its finished and OK
                 if (request.readyState == 4 && request.status == 200) {
                     characters = JSON.parse(request.responseText);
+                    console.log(typeof characters);
+                    console.log(characters);
+                    console.log(characters[0]);
                     SetCharacterALL();
                     return;
                     }
                 };
                 // Open (initialize) the request, get header information from this website
-                request.open("GET", "https://mmanndottech.firebaseio.com/characters.json", true); 
+                request.open("GET", "https://mmanndottech.firebaseio.com/characters.json", true);
+                request.setRequestHeader("Content-type", "application/json;charset=UTF-8");
                 request.send();
             }
-            var characters;
+            
             
 
 //            var characters = {0 : {"name" : "terra"}, 1 : {"name" : "terra2"}, 2 : {"name" : "terra3"}, 3 : {"name" : "terra4"}, 4 : {"name" : "terra5"}, 5 : {"name" : "terra6"}};
+            //Declare characters but dont set
+            var characters;
             //Set character array length to be used later
-            
+//            var charArrLength = Object.keys(characters).length;
             //Set default nav counter
             var navCounter = 0;
             //set default class names
