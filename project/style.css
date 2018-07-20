@@ -29,42 +29,42 @@ nav img, footer img {
 
 /*==============Animations============*/
 /*set up the inital pic formatting*/
-#terra {
+#Terra {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
     height: 380px;
     background: url(images/terra/spritesheet.png);
 }
-#terra2 {
+#Frog {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
     height: 380px;
     background: url(images/terra/spritesheet2.png);
 }
-#terra3 {
+#Chrono {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
     height: 380px;
     background: url(images/terra/spritesheet3.png);
 }   
-#terra4 {
+#MegaMan {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
     height: 380px;
     background: url(images/terra/spritesheet4.png);
 }   
-#terra5 {
+#Mario {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
     height: 380px;
     background: url(images/terra/spritesheet5.png);
 }   
-#terra6 {
+#Link {
     padding: 0px;
     margin: auto;
     width: calc(1152px / 3);
@@ -119,14 +119,14 @@ nav img, footer img {
     100 {transform: skew(0deg, 0deg); }
 }
 
-.laugh {
-    animation-name: laugh;
+.misc {
+    animation-name: misc;
     animation-duration: 2s, .5s, 2s,.5s;
     animation-timing-function: steps(4, end);
     animation-iteration-count: infinite;
 }
 
-@keyframes laugh
+@keyframes misc
 {
     from {
         background-position: -2688px;

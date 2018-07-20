@@ -38,7 +38,6 @@
             
             function EventOnLoad(){
                 GetCharacterData();
-//                SetCharacterALL();
             }
             //Get character data
             //!! XMLHTTP issue is that its not getting the info in time when the other variables load. then when i make it synchronous, it appears to be in a bad format or something. 
@@ -48,9 +47,6 @@
                 //This function checks the ready state and status to make sure its finished and OK
                 if (request.readyState == 4 && request.status == 200) {
                     characters = JSON.parse(request.responseText);
-                    console.log(typeof characters);
-                    console.log(characters);
-                    console.log(characters[0]);
                     SetCharacterALL();
                     return;
                     }
@@ -74,7 +70,7 @@
             var classWarp = "warp";
             var classWalk = "walk";
             var classIdle = "idle";
-            var classLaugh = "laugh";
+            var classMisc = "misc";
 
             //**** Navigation Functions ****
             //NavBack checks to see if we are at 0, if we are, it goes to the end, if we are not, it removes one and then it calls set character
@@ -123,12 +119,12 @@
                 var currentCharacter = characters[navCounter]["name"];
                 //set up audio file for walking
                 var currentAudioWalk = '<audio id="audioWalk" loop><source src="audio/walking.wav" type="audio/wav"></audio>';
-                //set up audio file for laughing
-                var currentAudioLaugh = '<audio id="audioLaugh" loop><source src="audio/'+ currentCharacter + 'Laugh.wav" type="audio/wav"></audio>';
-                //set up audio file for laughing
+                //set up audio file for misc anim
+                var currentAudioMisc = '<audio id="audioMisc" loop><source src="audio/'+ currentCharacter + 'Misc.wav" type="audio/wav"></audio>';
+                //set up audio file for warping
                 var currentAudioWarp = '<audio id="audioWarp" loop><source src="audio/'+ currentCharacter + 'Warp.wav" type="audio/wav"></audio>';
                 //replace innerHTML with current character div
-                spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioLaugh + currentAudioWarp + '</div>';
+                spriteContainer.innerHTML = '<div id="' + currentCharacter + '">' + currentAudioWalk + currentAudioMisc + currentAudioWarp + '</div>';
             }
             
             //SetDefault removes all current classes from the div and adds idle
@@ -144,9 +140,10 @@
                 if (spriteCharacter.classList.contains(classIdle)){
                     spriteCharacter.classList.remove(classIdle);
                 }
-                if (spriteCharacter.classList.contains(classLaugh)){
-                    spriteCharacter.classList.remove(classLaugh);
+                if (spriteCharacter.classList.contains(classMisc)){
+                    spriteCharacter.classList.remove(classMisc);
                 }
+                spriteCharacter.classList.add(classIdle);
             }
             
             //SetEvents sets up the current div with all the event listeners including touch, touch hold, swipe up, swipe down, swipe left, swipe right
@@ -189,7 +186,7 @@
                             AnimWarp(spriteCharacter);
                             break;
                         case 3:
-                            AnimLaugh(spriteCharacter);
+                            AnimMisc(spriteCharacter);
                             break;
                     }
                 });
@@ -198,10 +195,10 @@
             function AnimIdle(spriteCharacter) {
             //Sets to default, adds animation class
                 var audioWalk = document.getElementById('audioWalk');
-                var audioLaugh = document.getElementById('audioLaugh');
+                var audioMisc = document.getElementById('audioMisc');
                 SetDefault();
                 spriteCharacter.classList.add(classIdle);
-                audioLaugh.pause()
+                audioMisc.pause();
                 audioWalk.pause();
             }
             function AnimWalk(spriteCharacter) {
@@ -217,21 +214,21 @@
             //Sets to default, adds animation class, plays sound
                 var audioWarp = document.getElementById('audioWarp');
                 var audioWalk = document.getElementById('audioWalk');
-                var audioLaugh = document.getElementById('audioLaugh');
+                var audioMisc = document.getElementById('audioMisc');
                 SetDefault();
                 spriteCharacter.classList.add(classWarp);
                 audioWalk.pause();
-                audioLaugh.pause()
+                audioMisc.pause();
                 audioWarp.play();
             }
-            function AnimLaugh(spriteCharacter) {
+            function AnimMisc(spriteCharacter) {
             //Sets to default, adds animation class, plays sound
-                var audioLaugh = document.getElementById('audioLaugh');
+                var audioMisc = document.getElementById('audioMisc');
                 var audioWarp = document.getElementById('audioWarp');
                 SetDefault();
-                spriteCharacter.classList.add(classLaugh);
+                spriteCharacter.classList.add(classMisc);
                 audioWarp.pause();
-                audioLaugh.play();
+                audioMisc.play();
             }
         </script>
     </body>
